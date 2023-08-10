@@ -4,6 +4,7 @@ const app = express();
 const port = 3000;
 const mqtt = require("mqtt");
 const client = mqtt.connect("mqtt://192.168.1.5");
+const bodyParser = require('body-parser');
 
 const db = mysql.createPool({
   host: "localhost",
@@ -70,6 +71,32 @@ app.get("/api/ultimos-datos", async (req, res) => {
     res.status(500).json({ error: "Error al obtener los datos." });
   }
 });
+
+// Middleware
+app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.json());
+
+// Ruta de login
+app.post('/login', async (req, res) => {
+  const username = req.body.username;
+  const password = req.body.password;
+
+  try {
+      // Consultar la base de datos para verificar las credenciales
+      const query = 'SELECT * FROM usuarios WHERE username = ? AND password = ?';
+      const [rows, fields] = await db.execute(query, [username, password]);
+
+      if (rows.length > 0) {
+          return res.status(200).json({ message: 'Autenticación exitosa' });
+      } else {
+          return res.status(401).json({ error: 'Usuario o contraseña incorrectos' });
+      }
+  } catch (error) {
+      console.error('Error al consultar la base de datos:', error);
+      return res.status(500).json({ error: 'Error interno del servidor' });
+  }
+});
+
 
 app.listen(port, () => {
   console.log(`Servidor escuchando en el puerto ${port}`);

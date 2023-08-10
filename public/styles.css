@@ -1,6 +1,11 @@
 h1 {
-    color:red;
+    color: darkblue;
     margin:5px;
     padding:5px ;
     border: black 1px ;
+}
+h2{
+    color:darkgreen;
+    margin:2px;
+    padding:2px ;
 }

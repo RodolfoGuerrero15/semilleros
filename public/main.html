@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Obtener Últimos Datos</title>
+    <link rel="stylesheet" href="styles.css" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/mqtt/4.2.6/mqtt.js"></script>
+  </head>
+  <body>
+    <nav> 
+      <a href="registro.html">Tabla de datos</a>
+    </nav>
+    <h1>Insertar setpoints para el Semillero 1</h1>
+    
+    <input type="number" id="temperaturaInput" placeholder="Temperatura" />
+    <input type="number" id="humedadRelInput" placeholder="Humedad Relativa" />
+    <input
+      type="number"
+      id="humedadSueloInput"
+      placeholder="Humedad de Suelo"
+    />
+    <input type="number" id="luminosidadInput" placeholder="Luminosidad" />
+    <button id="enviarDatos">Enviar Datos MQTT</button>
+    <h1>Graficos semillero 1</h1>
+    <h2>Grafico Temperatura</h2>
+    <div>
+      <canvas id="GraficoTemperatura"></canvas>
+    </div>
+    <h2>Grafico Humedad relativa</h2>
+    <div>
+      <canvas id="GraficoHum_rel"></canvas>
+    </div>
+    <h2>Grafico Humedad de suelo</h2>
+    <div>
+      <canvas id="GraficoHumedad_suelo"></canvas>
+    </div>
+    <h2>Grafico Luminosidad</h2>
+    <div>
+      <canvas id="GraficoLuminosidad"></canvas>
+    </div>
+    <button id="obtenerDatos">Obtener Últimos 10 Datos de temperatura</button>
+    <ul id="listaDatos"></ul>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="script.js"></script>
+  </body>
+</html>

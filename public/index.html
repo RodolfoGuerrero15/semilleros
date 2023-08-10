@@ -1,26 +1,20 @@
 <!DOCTYPE html>
-<html lang="es">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Obtener Últimos Datos</title>
-    <link rel="stylesheet" href="styles.css" />
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/mqtt/4.2.6/mqtt.js"></script>
-  </head>
-  <body>
-    <h1>Datos Semillero 1</h1>
-    <a href="registro.html">Tabla de datos</a>
-    <input type="number" id="temperaturaInput" placeholder="Temperatura" />
-    <input type="number" id="humedadRelInput" placeholder="Humedad Relativa" />
-    <input
-      type="number"
-      id="humedadSueloInput"
-      placeholder="Humedad de Suelo"
-    />
-    <input type="number" id="luminosidadInput" placeholder="Luminosidad" />
-    <button id="enviarDatos">Enviar Datos MQTT</button>
-    <button id="obtenerDatos">Obtener Últimos 10 Datos de temperatura</button>
-    <ul id="listaDatos"></ul>
-    <script src="script.js"></script>
-  </body>
+<html>
+<head>
+    <title>Login</title>
+    <!-- Agrega enlaces a tus archivos CSS y JavaScript si los tienes -->
+</head>
+<body>
+    <h1>Login</h1>
+    <form id="login-form">
+        <label for="username">Nombre de Usuario:</label>
+        <input type="text" id="username" name="username" required>
+        <label for="password">Contraseña:</label>
+        <input type="password" id="password" name="password" required>
+        <button type="submit">Iniciar Sesión</button>
+    </form>
+    <p id="error-message" style="color: red;"></p>
+    <!-- Agrega referencias a tus archivos JavaScript -->
+    <script src="login.js"></script>
+</body>
 </html>

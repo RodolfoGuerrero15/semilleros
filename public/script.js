@@ -1,4 +1,4 @@
-var client = mqtt.connect("ws://192.168.1.5:9001/mqtt", {
+var client = mqtt.connect("ws://192.168.1.7:9001/mqtt", {
   // Reemplaza "tu_servidor_mqtt" con la URL de tu servidor MQTT
   port: 9001,
   protocol: "ws",
@@ -140,8 +140,9 @@ document.addEventListener("DOMContentLoaded", () => {
       listaDatos.innerHTML = ""; // Limpiar la lista antes de añadir los nuevos datos
 
       data.forEach((dato) => {
+        console.log(dato.fecha_hora)
         const li = document.createElement("li");
-        li.textContent = `ID: ${dato.id}, Valor: ${dato.temperatura}`;
+        li.textContent = `Fecha_hora: ${dato.fecha_hora},    Valor: ${dato.temperatura}`;
         listaDatos.appendChild(li);
       });
     } catch (error) {

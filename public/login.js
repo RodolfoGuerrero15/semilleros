@@ -21,7 +21,7 @@ document.addEventListener('DOMContentLoaded', function() {
             const data = await response.json();
             console.log(response);
             if (response.ok) {
-                window.location.href = '/main.html'; // Redirigir a la página principal
+                errorMessage.textContent = 'Usuario y contraseña validos'; // Redirigir a la página principal
             } else {
                 errorMessage.textContent = 'Usuario o contraseña incorrectos';
             }

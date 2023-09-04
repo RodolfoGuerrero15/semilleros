@@ -1,11 +1,39 @@
-h1 {
-    color: darkblue;
-    margin:5px;
-    padding:5px ;
-    border: black 1px ;
+body {
+    margin: 0;
+    padding: 0;
+    font-family: Arial, sans-serif;
 }
-h2{
-    color:darkgreen;
-    margin:2px;
-    padding:2px ;
+
+.navbar {
+    background-color: #333;
+    color: white;
 }
+
+.nav-list {
+    list-style: none;
+    display: flex;
+    justify-content: center;
+    margin: 0;
+    padding: 0;
+}
+
+.nav-item {
+    margin: 0;
+    padding: 15px 20px;
+    border-left: 1px solid #555;
+    transition: background-color 0.3s;
+}
+
+.nav-item:first-child {
+    border-left: none;
+}
+
+.nav-item a {
+    color: white;
+    text-decoration: none;
+}
+
+.nav-item:hover {
+    background-color: #555;
+}
+

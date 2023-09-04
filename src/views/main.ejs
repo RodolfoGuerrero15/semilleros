@@ -4,13 +4,19 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Obtener Últimos Datos</title>
-    <link rel="stylesheet" href="styles.css" />
+    <link rel="stylesheet" href="styles.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/mqtt/4.2.6/mqtt.js"></script>
   </head>
   <body>
-    <nav> 
-      <a href="/registro">Tabla de datos</a>
-    </nav>
+    <nav class="navbar">
+      <ul class="nav-list">
+          <li class="nav-item"><a href="registro">Registro</a></li>
+          <li class="nav-item"><a href="#">Gráficas</a></li>
+          <li class="nav-item"><a href="#">Selección</a></li>
+          <li class="nav-item"><a href="#">Reporte</a></li>
+          <li class="nav-item"><a href="#">Cerrar Sesión</a></li>
+      </ul>
+  </nav>
     <h1>Insertar setpoints para el Semillero 1</h1>
     
     <input type="number" id="temperaturaInput" placeholder="Temperatura" />

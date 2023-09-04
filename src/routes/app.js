@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const db = require('../../db')
+const { DateTime } = require('luxon');
 router.get('/', (req, res) => {
     res.redirect('/login');
   });
@@ -63,6 +64,44 @@ router.post('/login', (req, res) => {
     });
   });
 
+  router.post('/registro', (req, res) => {
+    const formData = req.body;
+    console.log(formData)
+    const numero = formData.numero;
+    const fecha = formData.fecha;
+    const variable = formData.variable;
+
+    const query = `
+        SELECT ${variable},fecha_hora 
+        FROM datos_semillero${numero} 
+        WHERE DATE(fecha_hora) = ?;
+    `;
+
+    
+        db.query(query, [fecha], (err, results) => {
+            
+            if (err) {
+                console.error('Error al obtener datos:', err);
+                res.status(500).json({ error: 'Error al obtener datos' });
+                return;
+            }
+            const resWithLocalTime = results.map(item => {
+              if (item.fecha_hora) {
+                dateParsed = new Date(item.fecha_hora.toString());
+                return { ...item, fecha_hora: dateTime = DateTime.fromJSDate(dateParsed).toFormat("yyyy-MM-dd HH:mm:ss") };
+              }
+              return item;
+            });
+            
+            console.log(resWithLocalTime)
+            res.json(resWithLocalTime);
+        });
+    ;
+});
+
+const convertToPeruTime = (utcDate) => {
+  return DateTime.fromISO(utcDate).setZone('America/Lima').toFormat('yyyy-MM-dd HH:mm:ss');
+};
 
 
 

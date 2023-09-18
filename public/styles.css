@@ -1,39 +1,293 @@
+:root {
+  --color-primary: #7380ec;
+  --color-danger: #ff7782;
+  --color-success: #41f1b6;
+  --color-warning: #ffbb55;
+  --color-white: #fff;
+  --color-info-dark: #7d8da1;
+  --color-info-light: #dce1eb;
+  --color-dark: #363949;
+  --color-light: rgba(132, 139, 200, 0.18);
+  --color-primary-variant: #111e88;
+  --color-dark-variant: #677483;
+  --color-background: #f6f6f9;
+
+  --color-insight-1: rgb(99, 209, 35);
+  --color-insight-2: rgb(233, 245, 59);
+  --color-insight-3: rgb(204, 52, 67);
+  --color-insight-4: rgb(56, 183, 238);
+
+  --card-border-radius: 2rem;
+  --border-radius-1: 0.4rem;
+  --border-radius-2: 0.8rem;
+  --border-radius-3: 1.2rem;
+
+  --card-padding: 1.8rem;
+  --padding-1: 1.2rem;
+
+  --box-shadow: 0 2rem 3rem var(--color-light);
+
+  /* Plotly Chart Color */
+  --chart-background: #fff;
+  --chart-font-color: #444;
+  --chart-axis-color: #444;
+}
+/* Dark Theme Variables */
+.dark-theme-variables {
+  --color-background: #090d3e;
+  --color-white: #0b0f4a;
+  --color-primary: #fff;
+  --color-dark: #edeffd;
+  --color-dark-variant: #fff;
+  --color-light: rgba(0, 0, 0, 0.4);
+  --box-shadow: 0 2rem 3rem var(--color-light);
+
+  --chart-background: #0d1256;
+  --chart-font-color: #fff;
+  --chart-axis-color: #fff;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  outline: 0;
+  appearance: none;
+  text-decoration: none;
+  list-style: none;
+  box-sizing: border-box;
+}
+
+html {
+  font-size: 14px;
+}
 body {
-    margin: 0;
-    padding: 0;
-    font-family: Arial, sans-serif;
+  width: 100vw;
+  height: 100vh;
+  font-family: poppins, san-serif;
+  font-size: 0.88rem;
+  background: var(--color-background);
+  user-select: none;
+  overflow-x: hidden;
+  color: var(--color-dark-variant);
+}
+.container {
+  display: grid;
+  width: 96%;
+  margin: 0 auto;
+  gap: 1.8rem;
+  grid-template-columns: 14rem auto 30rem;
+}
+a {
+  color: var(--color-dark);
+}
+img {
+  display: block;
+  width: 100%;
+}
+h1 {
+  font-weight: 800;
+  font-size: 1.8rem;
+}
+h2 {
+  font-size: 1.4rem;
+}
+h3 {
+  font-size: 0.87rem;
+}
+h4 {
+  font-size: 0.8rem;
+}
+h5 {
+  font-size: 0.77rem;
+}
+small {
+  font-size: 0.75rem;
+}
+.profile-photo {
+  width: 2.8rem;
+  height: 2.8rem;
+  border-radius: 50%;
+  overflow: hidden;
+}
+.text-muted {
+  color: var(--color-info-light);
+}
+p {
+  color: var(--color-dark-variant);
+}
+b {
+  color: var(--color-dark-variant);
+}
+.primary {
+  color: var(--color-primary);
+}
+.danger {
+  color: var(--color-danger);
+}
+.success {
+  color: var(--color-success);
+}
+.warning {
+  color: var(--color-warning);
 }
 
+
+/* Estilo para la barra de navegación */
 .navbar {
-    background-color: #333;
-    color: white;
-}
-
-.nav-list {
-    list-style: none;
-    display: flex;
-    justify-content: center;
-    margin: 0;
+    background-color: #333; /* Color de fondo */
+    padding: 10px; /* Espaciado interno */
+    font-family: Arial, sans-serif; /* Fuente de texto */
+  }
+  
+  /* Estilo para la lista de elementos de navegación */
+  .nav-list {
+    list-style: none; /* Elimina los puntos de lista */
     padding: 0;
+    display: flex; /* Muestra los elementos en línea */
+    justify-content: flex-end; /* Alinea los elementos a la derecha */
+  }
+  
+  /* Estilo para los elementos de navegación */
+  .nav-item {
+    margin-right: 20px; /* Espaciado entre elementos */
+  }
+  
+  /* Estilo para los enlaces de navegación */
+  .nav-item a {
+    text-decoration: none; /* Elimina la subraya de los enlaces */
+    color: #fff; /* Color del texto */
+  }
+  
+  /* Estilo para el botón de cierre de sesión */
+  .navbar form {
+    margin: 0; /* Elimina el margen del formulario */
+    padding: 0; /* Elimina el relleno del formulario */
+  }
+  
+  .navbar button {
+    background-color: #f44336; /* Color de fondo del botón */
+    color: #fff; /* Color del texto del botón */
+    border: none; /* Elimina el borde del botón */
+    padding: 8px 16px; /* Espaciado interno del botón */
+    cursor: pointer; /* Cambia el cursor al pasar por encima */
+    transition: background-color 0.3s; /* Transición de color de fondo */
+  }
+  
+  .navbar button:hover {
+    background-color: #d32f2f; /* Cambia el color de fondo al pasar por encima */
+  }
+
+  /* Estilos generales para los títulos */
+h1 {
+    font-size: 24px;
+    margin-bottom: 10px;
+  }
+  
+  h2 {
+    font-size: 18px;
+    margin-top: 20px;
+    margin-bottom: 10px;
+  }
+  
+
+
+  /************* main ******************/
+main {
+  margin-top: 1.4rem;
 }
 
-.nav-item {
-    margin: 0;
-    padding: 15px 20px;
-    border-left: 1px solid #555;
-    transition: background-color 0.3s;
+main .insights {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1.6rem;
+}
+main .insights > div {
+  background: var(--color-white);
+  padding: var(--card-padding);
+  border-radius: var(--card-border-radius);
+  margin-top: 1rem;
+  box-shadow: var(--box-shadow);
+  transition: all 300ms ease;
 }
 
-.nav-item:first-child {
-    border-left: none;
+main .insights > div:hover {
+  box-shadow: none;
 }
 
-.nav-item a {
-    color: white;
-    text-decoration: none;
+main .insights > div span {
+  background: var(--color-primary);
+  padding: 0.5rem;
+  border-radius: 50%;
+  color: var(--color-white);
+  font-size: 2rem;
 }
 
-.nav-item:hover {
-    background-color: #555;
+main .insights > div.temperature span {
+  background: var(--color-insight-1);
 }
 
+main .insights > div.humidity span {
+  background: var(--color-insight-2);
+}
+
+main .insights > div.pressure span {
+  background: var(--color-insight-3);
+}
+main .insights > div.altitude span {
+  background: var(--color-insight-4);
+}
+
+main .insights > div .middle {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+main .insights h3 {
+  margin: 1rem 0 0.6rem;
+  font-size: 1rem;
+}
+
+/************* End of Insights ******************/
+main .histories {
+  margin-top: 2rem;
+}
+
+main .history-charts {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 2.5rem;
+  background: var(--color-white);
+  border-radius: var(--border-radius-1);
+  padding: var(--card-padding);
+  text-align: center;
+  box-shadow: var(--box-shadow);
+}
+main .history-charts:hover {
+  box-shadow: none;
+}
+
+main .history-charts .history-divs {
+  text-align: center;
+}
+
+main .histories h2 {
+  margin-bottom: 0.8rem;
+}
+
+.my-button {
+  padding: 10px 10px;
+  background-color: #4CAF50;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.my-button:hover {
+  background-color: #45a049;
+}
+
+.my-button:active {
+  background-color: #3e8e41;
+}

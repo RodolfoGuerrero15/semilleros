@@ -31,7 +31,15 @@ router.post('/login', (req, res) => {
       }
     });
   });
-  
+  router.post('/logout', (req, res) => {
+    req.session.destroy((err) => {
+      if (err) {
+        console.error(err);
+      } else {
+        res.redirect('/login')
+      }
+    });
+  });
   // Ruta para el main.html (requiere autenticación)
   router.get('/main', (req, res) => {
     if (req.session.loggedin) {
@@ -48,7 +56,14 @@ router.post('/login', (req, res) => {
     }
   });
 
-  
+  router.get("/mqttConnDetails", (req, res) => {
+    res.send(
+      JSON.stringify({
+        mqttServer: "ws://192.168.1.7:9001/mqtt",
+        mqttTopic: "semillero1",
+      })
+    );
+  });
   
   router.get('/api/ultimos-datos', (req, res) => {
     const query = 'SELECT fecha_hora,temperatura FROM datos_semillero1 ORDER BY id DESC LIMIT 10';

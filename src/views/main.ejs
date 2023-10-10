@@ -13,7 +13,8 @@
     <script src="https://cdn.plot.ly/plotly-2.16.1.min.js"></script>
   </head>
   <body>
-    <nav class="navbar">
+    <div class="container">
+      <!-- <nav class="navbar">
       <ul class="nav-list">
         <li class="nav-item"><a href="registro">Registro</a></li>
         <li class="nav-item"><a href="#">Gráficas</a></li>
@@ -23,84 +24,177 @@
           <button type="submit">Cerrar sesión</button>
         </form>
       </ul>
-    </nav>
+    </nav> -->
+
+      <!-- <h1>Dashboard</h1>
+    <div class="seleccionsem">
+      <span>
+        Elija un numero de semillero
+        <input type="number" id="semillero" name="semillero" min="1" max="3" required
+      /></span><br>
+      <button class="my-button">Seleccionar semillero</button>
+    </div> -->
+      <aside>
+        <div class="top">
+          <div class="logo">
+            <img src="logo.png" alt="" />
+            <h2>Dashboard</h2>
+          </div>
+          <div class="close" id="close-btn">
+            <span class="material-symbols-sharp"> close </span>
+          </div>
+        </div>
+        <div class="sidebar">
+          <a href="#" class="active">
+            <span class="material-symbols-sharp"> dashboard </span>
+            <h3>Dashboard</h3>
+          </a>
+          <a href="semilleros">
+            <span class="material-symbols-sharp"> dashboard </span>
+            <h3>Semilleros</h3>
+          </a>
+          <a href="registro">
+            <span class="material-symbols-sharp">bar_chart</span>
+            <h3>Registro</h3>
+          </a>
+          
+          <a href="#">
+            <span class="material-symbols-sharp"> logout </span>
+            <form method="POST" action="/logout">
+              <button class="logout" type="submit">Cerrar sesión</button>
+            </form>
+          </a>
+          <div class="seleccionsem">
+            <h2>Selección de semillero</h2>
+            <span>
+              Elija un semillero
+              <input
+                type="number"
+                id="semillero"
+                name="semillero"
+                min="1"
+                max="3"
+                required /></span
+            ><br />
+            <button class="my-button">Seleccionar semillero</button>
+          </div>
+        </div>
+        
+
+      </aside>
+      <main>
+        <h2>Valores actuales</h2>
+        <div class="insights">
+          
+          <div class="temperature">
+            <div class="middle">
+              <div class="left">
+                <h3>Temperatura</h3>
+                <h1 id="temperature"></h1>
+              </div>
+              <div class="icon">
+                <span class="material-symbols-sharp"> device_thermostat </span>
+              </div>
+            </div>
+          </div>
+          <!-- End of temperature -->
+          <div class="humidity">
+            <div class="middle">
+              <div class="left">
+                <h3>Humedad Relativa</h3>
+                <h1 id="humidity"></h1>
+              </div>
+              <div class="icon">
+                <span class="material-symbols-sharp">
+                  humidity_percentage
+                </span>
+              </div>
+            </div>
+          </div>
+          <!-- End of humidity -->
+          <div class="pressure">
+            <div class="middle">
+              <div class="left">
+                <h3>Humedad de suelo</h3>
+                <h1 id="pressure"></h1>
+              </div>
+              <div class="icon">
+                <span class="material-symbols-sharp"> grass </span>
+              </div>
+            </div>
+          </div>
+          <!-- End of pressure -->
+          <div class="altitude">
+            <div class="middle">
+              <div class="left">
+                <h3>Luminosidad</h3>
+                <h1 id="altitude"></h1>
+              </div>
+              <div class="icon">
+                <span class="material-symbols-sharp">
+                  <span class="material-symbols-sharp"> wb_incandescent </span>
+                </span>
+              </div>
+            </div>
+          </div>
+          <!-- End of altitude -->
+        </div>
+        <!-- End of Insights -->
+        <div class="histories">
+          <h2>Gráficas en tiempo real</h2>
+          <div class="history-charts">
+            <div id="temperature-history" class="history-divs"></div>
+            <div id="humidity-history" class="history-divs"></div>
+            <div id="pressure-history" class="history-divs"></div>
+            <div id="altitude-history" class="history-divs"></div>
+          </div>
+        </div>
+      </main>
+      <div class="right">
+        <h1>Control Actuadores</h1>
+        <div class="actuators">
+          <div id="riego" class="actuator">
+            
+            <div class="left">
+              <h2>Riego</h2>
+              <button class="encender">Encender</button>
+              <button class="apagar">Apagar</button>
+              <h4>Programar hora de riego</h4>
+              <form action="/programarRiego" method="post">
+                <input type="datetime-local" id="fechaHora" name="fechaHora"><br>
+                <!-- Otros campos del formulario -->
+                <button type="submit">Enviar</button>
+            </form>
+              <h4>Estado actual: Encendido</h4>
+            </div>  
+            
+              <div class="icon">
+                <span class="material-symbols-sharp"> valve </span>
+            </div>
+        </div>
+          <div id="ventilacion" class="actuator">
+            <div class="left">
+              <h2>Ventilación</h2>
+              <button class="encender">Encender</button>
+              <button class="apagar">Apagar</button>
+              <h4>Modificar temperatura límite</h4>
+              <form action="/modificartemp" method="post">
+                <input type="number" id="number" name="number"><br>
+                <!-- Otros campos del formulario -->
+                <button type="submit">Enviar</button>
+            </form>
+              <h4>Estado actual: Encendido</h4>
+            </div>  
+            <div class="icon">
+              <span class="material-symbols-sharp"> mode_fan </span>
+        </div>
+          </div>
+        
+        
+      </div>
+    </div>
+
     
-    <h1>Dashboard</h1>
-    <span>
-      Elija un numero de semillero
-      <input type="number" id="semillero" name="semillero" min="1" max="3" required
-    /></span><br>
-    <button class="my-button">Seleccionar semillero</button>
-    <main>
-      <div class="connection-status">
-        <h3>Valores Actuales</h3>
-      </div>
-      <div class="insights">
-        <div class="temperature">
-          <div class="middle">
-            <div class="left">
-              <h3>Temperatura</h3>
-              <h1 id="temperature"></h1>
-            </div>
-            <div class="icon">
-              <span class="material-symbols-sharp"> device_thermostat </span>
-            </div>
-          </div>
-        </div>
-        <!-- End of temperature -->
-        <div class="humidity">
-          <div class="middle">
-            <div class="left">
-              <h3>Humedad Relativa</h3>
-              <h1 id="humidity"></h1>
-            </div>
-            <div class="icon">
-              <span class="material-symbols-sharp"> humidity_percentage </span>
-            </div>
-          </div>
-        </div>
-        <!-- End of humidity -->
-        <div class="pressure">
-          <div class="middle">
-            <div class="left">
-              <h3>Humedad de suelo</h3>
-              <h1 id="pressure"></h1>
-            </div>
-            <div class="icon">
-              <span class="material-symbols-sharp"> grass </span>
-            </div>
-          </div>
-        </div>
-        <!-- End of pressure -->
-        <div class="altitude">
-          <div class="middle">
-            <div class="left">
-              <h3>Luminosidad</h3>
-              <h1 id="altitude"></h1>
-            </div>
-            <div class="icon">
-              <span class="material-symbols-sharp">
-                <span class="material-symbols-sharp"> wb_incandescent </span>
-              </span>
-            </div>
-          </div>
-        </div>
-        <!-- End of altitude -->
-      </div>
-      <!-- End of Insights -->
-      <div class="histories">
-        <h2>Historical Charts</h2>
-        <div class="history-charts">
-          <div id="temperature-history" class="history-divs"></div>
-          <div id="humidity-history" class="history-divs"></div>
-          <div id="pressure-history" class="history-divs"></div>
-          <div id="altitude-history" class="history-divs"></div>
-        </div>
-      </div>
-    </main>
-    
-    <button id="obtenerDatos">Obtener Últimos 10 Datos de temperatura</button>
-    <ul id="listaDatos"></ul>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script src="script.js"></script>
   </body>

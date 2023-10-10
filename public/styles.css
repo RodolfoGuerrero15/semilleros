@@ -1,3 +1,4 @@
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap");
 :root {
   --color-primary: #7380ec;
   --color-danger: #ff7782;
@@ -132,68 +133,122 @@ b {
 }
 
 
-/* Estilo para la barra de navegación */
-.navbar {
-    background-color: #333; /* Color de fondo */
-    padding: 10px; /* Espaciado interno */
-    font-family: Arial, sans-serif; /* Fuente de texto */
-  }
-  
-  /* Estilo para la lista de elementos de navegación */
-  .nav-list {
-    list-style: none; /* Elimina los puntos de lista */
-    padding: 0;
-    display: flex; /* Muestra los elementos en línea */
-    justify-content: flex-end; /* Alinea los elementos a la derecha */
-  }
-  
-  /* Estilo para los elementos de navegación */
-  .nav-item {
-    margin-right: 20px; /* Espaciado entre elementos */
-  }
-  
-  /* Estilo para los enlaces de navegación */
-  .nav-item a {
-    text-decoration: none; /* Elimina la subraya de los enlaces */
-    color: #fff; /* Color del texto */
-  }
-  
-  /* Estilo para el botón de cierre de sesión */
-  .navbar form {
-    margin: 0; /* Elimina el margen del formulario */
-    padding: 0; /* Elimina el relleno del formulario */
-  }
-  
-  .navbar button {
-    background-color: #f44336; /* Color de fondo del botón */
-    color: #fff; /* Color del texto del botón */
-    border: none; /* Elimina el borde del botón */
-    padding: 8px 16px; /* Espaciado interno del botón */
-    cursor: pointer; /* Cambia el cursor al pasar por encima */
-    transition: background-color 0.3s; /* Transición de color de fondo */
-  }
-  
-  .navbar button:hover {
-    background-color: #d32f2f; /* Cambia el color de fondo al pasar por encima */
-  }
+/***** Sidebar Image*****/
+aside {
+  height: 100vh;
+}
+aside .top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 1.4rem;
+}
+aside .logo {
+  display: flex;
+  gap: 0.8rem;
+}
+aside .logo img {
+  width: 3.5rem;
+  height: 2re;
+}
+aside .close {
+  display: none;
+}
+/***** Sidebar Links*****/
+aside .sidebar {
+  display: flex;
+  flex-direction: column;
+  height: 86vh;
+  position: relative;
+  top: 3rem;
+}
+aside h3 {
+  font-weight: 500;
+}
 
-  /* Estilos generales para los títulos */
-h1 {
-    font-size: 24px;
-    margin-bottom: 10px;
-  }
-  
-  h2 {
-    font-size: 18px;
-    margin-top: 20px;
-    margin-bottom: 10px;
-  }
-  
+aside .sidebar a {
+  display: flex;
+  color: var(--color-info-dark);
+  margin-left: 2rem;
+  gap: 1rem;
+  align-items: center;
+  position: relative;
+  height: 3.7rem;
+  transition: all 300ms ease;
+}
 
+aside .sidebar a span {
+  font-size: 1.6rem;
+  transition: all 300ms ease;
+}
+
+/* aside .sidebar a:last-child {
+  position: absolute;
+  bottom: 2rem;
+  width: 100%;
+
+} */
+aside .sidebar .logout {
+  border: none;
+  outline: none;
+  font-family: poppins, san-serif;
+  background-color: var(--color-background);
+  color: var(--color-info-dark);
+  cursor: pointer;
+} 
+
+aside .sidebar a.active {
+  background: var(--color-light);
+  color: var(--color-primary);
+  margin-left: 0;
+}
+aside .sidebar a.active:before {
+  content: "";
+  width: 6px;
+  height: 100%;
+  background: var(--color-primary);
+}
+aside .sidebar a.active span {
+  color: var(--color-primary);
+  margin-left: calc(1rem - 6px);
+}
+aside .sidebar a:hover {
+  color: var(--color-primary);
+}
+
+aside .sidebar a:hover span {
+  margin-left: 1rem;
+}
+.seleccionsem{
+  margin-top: 4rem;
+  padding: 2 rem;
+  margin-left: 2rem;
+}
+.seleccionsem input{
+  display:block;
+  margin-top: 1rem;
+} 
+.my-button {
+  padding: 5px 5px;
+  background-color: #4CAF50;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.my-button:hover {
+  background-color: #45a049;
+}
+
+.my-button:active {
+  background-color: #3e8e41;
+}
 
   /************* main ******************/
 main {
   margin-top: 1.4rem;
+  
 }
 
 main .insights {
@@ -256,7 +311,7 @@ main .histories {
 main .history-charts {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
-  gap: 2.5rem;
+  gap: 2rem;
   background: var(--color-white);
   border-radius: var(--border-radius-1);
   padding: var(--card-padding);
@@ -275,19 +330,287 @@ main .histories h2 {
   margin-bottom: 0.8rem;
 }
 
-.my-button {
-  padding: 10px 10px;
-  background-color: #4CAF50;
-  color: white;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
+
+.right {
+  margin-top: 1.4rem;
+}
+.right .actuators{
+  margin-top: 2rem;
+}
+.right .actuators >div {
+  background: var(--color-white);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+  margin-bottom: 2rem;
+  padding: 1.4rem var(--card-padding);
+  border-radius: var(--border-radius-3);
+  box-shadow: var(--box-shadow);
+  transition: all 300ms ease;
+}
+.right .actuators >div:hover {
+  box-shadow: none;
+}
+.right .actuators >div .left{
+  display: block;
+  align-items: right;
+  margin-right: 3rem;
+}
+.right .actuators >div .left h2{
+  margin-bottom: 0.2rem;
+
+}
+.right .actuators >div .left h4{
+  margin-top: 0.8rem;
+
+}
+.right .actuators >div span{
+  font-size: 6rem;
+  padding: 0.5rem;
+  border-radius: 50%;
+  color: var(--color-white);
+
+  
+}
+.right .actuators #riego span{
+  
+  background: #5DADE2;
+}
+.right .actuators #ventilacion span{
+  
+  background: #4A235A;
+}
+.right .actuators >div .encender{
+  
+    padding: 3px 3px;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+  
+}
+.right .actuators >div .encender:hover {
+    background-color: #45a049;
+  }
+  
+  .right .actuators >div .encender:active {
+    background-color: #3e8e41;
+  }
+  .right .actuators >div .apagar{
+  
+    padding: 3px 3px;
+    background-color: #CB4335;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+  
+}
+.right .actuators >div .apagar:hover {
+    background-color: #E74C3C;
+  }
+  
+  .right .actuators >div .apagar:active {
+    background-color: #EC7063;
+  }
+  .right .actuators >div form button{
+    margin-top: 0.5rem;
+    padding: 3px 3px;
+    background-color: #21618C;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+  
+}
+.right .actuators >div form button:hover {
+    background-color: #2874A6;
+  }
+  
+  .right .actuators >div form button:active {
+    background-color: #2E86C1;
+  }
+
+
+
+
+/* MEDIA QUERIES */
+@media screen and (max-width: 1200px) {
+  .container {
+    width: 94%;
+    grid-template-columns: 7rem auto 23rem;
+  }
+  aside .logo h2 {
+    display: none;
+  }
+
+  aside .sidebar h3 {
+    display: none;
+  }
+  aside .sidebar a {
+    width: 5.6rem;
+  }
+  aside .sidebar a:last-child {
+    position: relative;
+    margin-top: 1.8rem;
+  }
+  main .insights {
+    grid-template-columns: 1fr;
+  }
+  main .histories {
+    width: 94%;
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    margin: 2rem 0 0 8.8rem;
+  }
+  main .histories .history-charts {
+    grid-template-columns: 1fr;
+    width: 54vw;
+  }
 }
 
-.my-button:hover {
-  background-color: #45a049;
+@media only screen and (max-width: 992px) {
+  .container {
+    width: 94%;
+    grid-template-columns: 12rem auto 23rem;
+  }
+  main .insights {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1.6rem;
+  }
+  main .histories .history-charts {
+    grid-template-columns: 1fr;
+    align-items: center;
+    justify-content: center;
+  }
 }
 
-.my-button:active {
-  background-color: #3e8e41;
+@media screen and (max-width: 768px) {
+  .container {
+    width: 100%;
+    grid-template-columns: 1fr;
+    /* height: 100vh; */
+  }
+  aside {
+    position: fixed;
+    left: -100%;
+    background: var(--color-white);
+    width: 18rem;
+    z-index: 3;
+    box-shadow: 1rem 3rem 4rem var(--color-light);
+    height: 100vh;
+    padding-right: var(--card-padding);
+    display: none;
+    animation: showMenu 400ms ease forwards;
+  }
+  @keyframes showMenu {
+    to {
+      left: 0;
+    }
+  }
+  aside .logo {
+    margin-left: 1rem;
+  }
+  aside .logo h2 {
+    display: inline;
+  }
+  aside .sidebar h3 {
+    display: inline;
+  }
+  aside .sidebar a {
+    width: 100%;
+    height: 3.4rem;
+  }
+  /* aside .sidebar a:last-child {
+    position: absolute;
+    bottom: 5rem;
+  } */
+  aside .close {
+    display: inline-block;
+    cursor: pointer;
+  }
+  main {
+    margin: 8rem 2rem 2rem 2rem;
+    padding: 0 1rem;
+  }
+  main .histories {
+    position: relative;
+    margin: 3rem 0 0 0;
+    width: 100%;
+  }
+  main .histories .history-charts {
+    width: 100%;
+    justify-content: center;
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+  .right {
+    width: 90%;
+    margin: 0 auto 0rem auto;
+  }
+  .right .top {
+    position: fixed;
+    top: 0;
+    left: 0;
+    align-items: center;
+    padding: 0 0.8rem;
+    height: 4.6rem;
+    background: var(--color-white);
+    width: 100%;
+    margin: 0;
+    z-index: 2;
+    box-shadow: 0 1rem 1 rem var(--color-light);
+  }
+  .right .top .theme-toggler {
+    width: 4.4rem;
+    position: absolute;
+    right: 2rem;
+  }
+  .right .profile .info {
+    display: none;
+  }
+
+  .right .top button {
+    display: inline-block;
+    background: transparent;
+    cursor: pointer;
+    color: var(--color-dark);
+    position: absolute;
+    left: 1rem;
+  }
+  .right .top button span {
+    font-size: 2rem;
+  }
 }
+
+@media screen and (max-width: 600px) {
+  .container {
+    width: 100%;
+    grid-template-columns: 1fr;
+    margin: 1rem 0 1rem 0;
+  }
+  main {
+    margin: 5rem 1rem 1rem 1rem;
+    padding: 0 1rem;
+    width: 90vw;
+  }
+
+  main .insights {
+    gap: 0.4rem;
+  }
+  main .insights > div {
+    padding: 0.4rem;
+  }
+
+  main .history-charts {
+    display: grid;
+    grid-template-columns: 1fr;
+  }
+}
+

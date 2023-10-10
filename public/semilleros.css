@@ -1,0 +1,143 @@
+:root {
+    --color-primary: #7380ec;
+    --color-danger: #ff7782;
+    --color-success: #41f1b6;
+    --color-warning: #ffbb55;
+    --color-white: #fff;
+    --color-info-dark: #7d8da1;
+    --color-info-light: #dce1eb;
+    --color-dark: #363949;
+    --color-light: rgba(132, 139, 200, 0.18);
+    --color-primary-variant: #111e88;
+    --color-dark-variant: #677483;
+    --color-background: #f6f6f9;
+  
+    --color-insight-1: rgb(99, 209, 35);
+    --color-insight-2: rgb(233, 245, 59);
+    --color-insight-3: rgb(204, 52, 67);
+    --color-insight-4: rgb(56, 183, 238);
+  
+    --card-border-radius: 2rem;
+    --border-radius-1: 0.4rem;
+    --border-radius-2: 0.8rem;
+    --border-radius-3: 1.2rem;
+  
+    --card-padding: 1.8rem;
+    --padding-1: 1.2rem;
+  
+    --box-shadow: 0 2rem 3rem var(--color-light);
+  
+    /* Plotly Chart Color */
+    --chart-background: #fff;
+    --chart-font-color: #444;
+    --chart-axis-color: #444;
+  }
+  /* Dark Theme Variables */
+  .dark-theme-variables {
+    --color-background: #090d3e;
+    --color-white: #0b0f4a;
+    --color-primary: #fff;
+    --color-dark: #edeffd;
+    --color-dark-variant: #fff;
+    --color-light: rgba(0, 0, 0, 0.4);
+    --box-shadow: 0 2rem 3rem var(--color-light);
+  
+    --chart-background: #0d1256;
+    --chart-font-color: #fff;
+    --chart-axis-color: #fff;
+  }
+
+html {
+    font-size: 14px;
+    font-family: sans-serif;
+  }
+.semillero {
+    border: 1px solid #ccc;
+    margin: 10px;
+    padding: 10px;
+    width: calc(33.33% - 20px); /* Tres productos por fila con margen */
+    float: left; /* Distribución en línea */
+    box-sizing: border-box; /* Incluye el borde en el ancho y alto */
+    background-color: #7d8da1;
+    border-radius:var(--border-radius-2);
+  }
+  
+  /* Limpia el salto de línea después de cada fila de productos */
+  .clearfix::after {
+    content: "";
+    clear: both;
+    display: table;
+  }
+  .arriba{
+    display:flex;
+    justify-content: space-between;
+  }
+  .arriba h2{
+    font-size: 12;
+  }
+  #modify{
+    text-align: center;
+    margin-top: 20px;
+    
+  }
+  #delete{
+    text-align: right;
+    margin-top: 20px;
+    margin-right: 15px;
+    
+  }
+  /* Estilos base para los botones */
+.boton {
+    padding: 10px 15px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-weight: bold;
+    text-transform: uppercase;
+    margin-right: 10px;
+  }
+  
+  /* Estilos para el botón de eliminar */
+  .boton.eliminar {
+    margin-top: 15px;
+    background-color: #ff3333; /* Color de fondo rojo */
+    color: white; /* Color de texto blanco */
+    margin-right: 15px;
+  }
+  
+  /* Estilos para el botón de modificar */
+  .boton.modificar {
+    background-color: #007bff; /* Color de fondo azul */
+    color: white; /* Color de texto blanco */
+    margin-top: 15px;
+  }
+  
+  /* Estilos adicionales si se desea cambiar la apariencia al pasar el ratón sobre el botón */
+  .boton:hover {
+    opacity: 0.8;
+  }
+
+  .medio{
+    display:flex;
+    justify-content: space-between;
+  }
+  .medio span{
+    font-size: 60px;
+  }
+  .temperatura{
+    text-align: right;
+    display: flex;
+  }
+  .semilla{
+    text-align: left;
+    display: flex;
+  }
+
+  .barra{
+    display:flex
+  }
+  .barra a{
+    margin:10px 10px;
+    text-decoration: none;
+    color:#0b0f4a;
+  }

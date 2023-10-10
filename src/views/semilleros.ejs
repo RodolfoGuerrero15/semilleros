@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Semilleros</title>
+    <link rel="stylesheet" href="semilleros.css">
+    <link
+      href="https://fonts.googleapis.com/icon?family=Material+Symbols+Sharp"
+      rel="stylesheet"
+    />
+</head>
+<body>
+    <div class="barra">
+        <a href="agregar-semillero"><h2>Agregar semillero</h2></a>
+        <a href="main"><h2>Volver a pagina principal</h2></a>
+    </div>
+    
+    <% semilleros.forEach(function(semillero) { %>
+      <div class="semillero">
+        <div class="arriba">
+            <h2>Semillero #<%= semillero.id %></h2>
+            <form action="/modificar-semillero/<%= semillero.id %>" method="get">
+                <button class="boton modificar" type="submit">Modificar</button>
+              </form>
+              <form action="/eliminar-semillero/<%= semillero.id %>" method="post">
+                <button class="boton eliminar" type="submit">Eliminar</button>
+              </form>
+        </div>
+        <div class="medio">
+            <div class="semilla">
+                <span class="material-symbols-sharp">potted_plant</span>
+                <h3>Semilla: <%= semillero.semilla %></h3>
+            </div>
+            <div class="temperatura">
+                <span class="material-symbols-sharp">thermostat</span>
+            <h3>Temperatura ideal: <%= semillero.temp_ideal %>°C</h3>
+            </div>
+            
+        </div>
+        
+        <h3>Descripción: <%= semillero.description %></h3>
+        <h3>Fecha de inicio de siembra: <%= semillero.fecha_inicio %></h3>
+      
+      </div>
+    <% }); %>
+  
+    
+  </body>
+</html>

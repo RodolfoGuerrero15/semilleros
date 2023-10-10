@@ -381,8 +381,6 @@ client.on("message", (topic, message) => {
 
 document.addEventListener("DOMContentLoaded", () => {
   fetchMQTTConnection();
-  const obtenerDatosBtn = document.getElementById("obtenerDatos");
-  const listaDatos = document.getElementById("listaDatos");
   Plotly.newPlot(
     temperatureHistoryDiv,
     [temperatureTrace],
@@ -392,50 +390,59 @@ document.addEventListener("DOMContentLoaded", () => {
   Plotly.newPlot(humidityHistoryDiv, [humidityTrace], humidityLayout, config);
   Plotly.newPlot(soilhumidityHistoryDiv, [soilhumidityTrace], soilhumidityLayout, config);
   Plotly.newPlot(luminosityHistoryDiv, [luminosityTrace], luminosityLayout, config);
-  obtenerDatosBtn.addEventListener("click", async () => {
-    try {
-      const response = await fetch("/api/ultimos-datos");
-      const data = await response.json();
-      console.log(data);
-
-      listaDatos.innerHTML = ""; // Limpiar la lista antes de añadir los nuevos datos
-
-      data.forEach((dato) => {
-        console.log(dato.fecha_hora)
-        const li = document.createElement("li");
-        li.textContent = `Fecha_hora: ${dato.fecha_hora},    Valor: ${dato.temperatura}`;
-        listaDatos.appendChild(li);
-      });
-    } catch (error) {
-      console.error(error);
-    }
-  });
 });
 
-document.addEventListener("DOMContentLoaded", () => {
-  const enviarDatosBtn = document.getElementById("enviarDatos");
-  const temperaturaInput = document.getElementById("temperaturaInput");
-  const humedadRelInput = document.getElementById("humedadRelInput");
-  const humedadSueloInput = document.getElementById("humedadSueloInput");
-  const luminosidadInput = document.getElementById("luminosidadInput");
+// document.addEventListener("DOMContentLoaded", () => {
+//   const enviarDatosBtn = document.getElementById("enviarDatos");
+//   const temperaturaInput = document.getElementById("temperaturaInput");
+//   const humedadRelInput = document.getElementById("humedadRelInput");
+//   const humedadSueloInput = document.getElementById("humedadSueloInput");
+//   const luminosidadInput = document.getElementById("luminosidadInput");
 
-  enviarDatosBtn.addEventListener("click", () => {
-    const datos = {
-      temperatura: parseFloat(temperaturaInput.value),
-      "humedad-rel": parseFloat(humedadRelInput.value),
-      "humedad-suelo": parseFloat(humedadSueloInput.value),
-      luminosidad: parseFloat(luminosidadInput.value),
+//   enviarDatosBtn.addEventListener("click", () => {
+//     const datos = {
+//       temperatura: parseFloat(temperaturaInput.value),
+//       "humedad-rel": parseFloat(humedadRelInput.value),
+//       "humedad-suelo": parseFloat(humedadSueloInput.value),
+//       luminosidad: parseFloat(luminosidadInput.value),
+//     };
+
+//     // Publica los datos en el tópico MQTT
+//     client.publish("datos_semillero1", JSON.stringify(datos));
+
+//     // Limpia los inputs después de enviar los datos
+//     temperaturaInput.value = "";
+//     humedadRelInput.value = "";
+//     humedadSueloInput.value = "";
+//     luminosidadInput.value = "";
+//   });
+
+//   // ... (código para suscribirse y mostrar datos recibidos en la interfaz de usuario)
+// });
+
+const mediaQuery = window.matchMedia("(max-width: 600px)");
+
+mediaQuery.addEventListener("change", function (e) {
+  handleDeviceChange(e);
+});
+
+function handleDeviceChange(e) {
+  if (e.matches) {
+    console.log("Inside Mobile");
+    var updateHistory = {
+      width: 323,
+      height: 250,
+      "xaxis.autorange": true,
+      "yaxis.autorange": true,
     };
-
-    // Publica los datos en el tópico MQTT
-    client.publish("datos_semillero1", JSON.stringify(datos));
-
-    // Limpia los inputs después de enviar los datos
-    temperaturaInput.value = "";
-    humedadRelInput.value = "";
-    humedadSueloInput.value = "";
-    luminosidadInput.value = "";
-  });
-
-  // ... (código para suscribirse y mostrar datos recibidos en la interfaz de usuario)
-});
+    historyCharts.forEach((chart) => Plotly.relayout(chart, updateHistory));
+  } else {
+    var updateHistory = {
+      width: 550,
+      height: 260,
+      "xaxis.autorange": true,
+      "yaxis.autorange": true,
+    };
+    historyCharts.forEach((chart) => Plotly.relayout(chart, updateHistory));
+  }
+}

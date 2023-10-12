@@ -25,6 +25,7 @@ const semilleros=(req, res) => {
         row.fecha_inicio=fechaFormateada;
       })
       res.render('semilleros', { semilleros: rows });
+      
     });
   }
     else{
@@ -44,6 +45,8 @@ const semilleros=(req, res) => {
       res.render('modificar-semillero', { semillero: rows[0] });
     });
   }
+
+  
   const modificar_semillero_post=(req, res) => {
     const productId = req.params.id;
     const { semilla, temp_ideal, description, fecha_inicio } = req.body;
@@ -55,6 +58,8 @@ const semilleros=(req, res) => {
       res.redirect('/semilleros');
     });
   }
+
+
   const eliminar_semillero=(req, res) => {
     const productId = req.params.id;
     db.query('DELETE FROM semilleros WHERE id = ?', [productId], (err) => {
@@ -64,6 +69,8 @@ const semilleros=(req, res) => {
       res.redirect('/semilleros');
     });
   }
+
+
   const agregar_semillero_post=(req, res) => {
     const { id,semilla,temp_ideal,description,fecha_inicio } = req.body;
     const producto = { id,semilla,temp_ideal,description,fecha_inicio };
@@ -75,7 +82,7 @@ const semilleros=(req, res) => {
       res.redirect('/semilleros');
     });
   }
-  
+
   module.exports={
     semilleros,
     agregar_semillero,

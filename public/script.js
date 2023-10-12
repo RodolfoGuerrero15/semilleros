@@ -1,27 +1,32 @@
-var server,topic,client;
-function fetchMQTTConnection() {
-  fetch("/mqttConnDetails", {
-    method: "GET",
-    headers: {
-      "Content-type": "application/json; charset=UTF-8",
-    },
-  })
-    .then(function (response) {
-      return response.json();
-    })
-    .then(function (data) {
-      server=data.mqttServer;
-      topic=data.mqttTopic;
-      console.log(server)
-    })
-    .catch((error) => console.error("Error getting MQTT Connection :", error));
-}
-
-var client = mqtt.connect("ws://192.168.1.7:9001/mqtt", {
+var topico;
+var client = mqtt.connect("ws://broker.emqx.io:8083/mqtt", {
   // Reemplaza "tu_servidor_mqtt" con la URL de tu servidor MQTT
-  port: 9001,
+  port: 8083,
   protocol: "ws",
   rejectUnauthorized: false, // Opcionalmente, establece a true si no deseas aceptar certificados no confiables
+});
+
+client.on("connect", () => {
+  console.log("Conexión MQTT exitosa");
+  client.subscribe("semilleros/#");
+});
+client.on("message", (topic, message) => {
+  const data = message.toString();
+  if (topic == topico) {
+    jsonData = JSON.parse(data);
+    updateSensorReadings(jsonData);
+    // let Temperatura = jsonData.temperatura;
+    // let humedad_relativa = jsonData.humedad_rel;
+    // let Hum_suelo = jsonData.humedad_suelo;
+    // let luminosidadrecibida = jsonData.luminosidad;
+    // var today = new Date();
+    // var now = today.toLocaleString();
+    // console.log(now);
+    // ActualizarGrafico(graphTemp, now, Temperatura);
+    // ActualizarGrafico(graphHumedad_rel, now, humedad_relativa);
+    // ActualizarGrafico(graphHumedad_suelo, now, Hum_suelo);
+    // ActualizarGrafico(graphLuminosidad, now, luminosidadrecibida);
+  }
 });
 // Holds the background color of all chart
 var chartBGColor = getComputedStyle(document.body).getPropertyValue(
@@ -242,11 +247,29 @@ function updateCharts(lineChartDiv, xArray, yArray, sensorRead) {
   if (yArray.length >= MAX_GRAPH_POINTS) {
     yArray.shift();
   }
-  var today = new Date();
-  var now = today.toLocaleString();
-  xArray.push(now);
-  yArray.push(sensorRead);
+  // var today = new Date();
+  // var now = today.toLocaleString();
+  const fechaHoraOriginal = new Date();
 
+// Analiza la cadena en un objeto Date
+const fechaHoraObjeto = fechaHoraOriginal.toLocaleString();
+
+
+// Divide la cadena en fecha y hora
+const [fecha, hora] = fechaHoraObjeto.split(', ');
+
+// Divide la fecha en día, mes y año
+const [dia, mes, año] = fecha.split('/');
+
+// Reformatea la cadena de fecha y hora en el nuevo formato
+const fechaHoraFormateada = `${año}-${mes}-${dia} ${hora}`;
+
+// Formatea la cadena de fecha y hora en el nuevo formato
+
+  xArray.push(fechaHoraFormateada);
+  yArray.push(parseFloat(sensorRead));
+  console.log(xArray)
+  console.log(yArray)
   var data_update = {
     x: [xArray],
     y: [yArray],
@@ -255,12 +278,12 @@ function updateCharts(lineChartDiv, xArray, yArray, sensorRead) {
   Plotly.update(lineChartDiv, data_update);
 }
 
-function ActualizarGrafico(grafico,fecha,variable){
-    grafico.data.labels.push(fecha);
-    grafico.data.datasets.forEach((dataset) => {
-      dataset.data.push(variable);
-    });
-    grafico.update();
+function ActualizarGrafico(grafico, fecha, variable) {
+  grafico.data.labels.push(fecha);
+  grafico.data.datasets.forEach((dataset) => {
+    dataset.data.push(variable);
+  });
+  grafico.update();
 }
 // const ctx = document.getElementById("GraficoTemperatura");
 // const ctx2 = document.getElementById("GraficoHum_rel");
@@ -354,33 +377,9 @@ function ActualizarGrafico(grafico,fecha,variable){
 //     },
 //   },
 // });
-client.on("connect", () => {
-  console.log("Conexión MQTT exitosa");
-  client.subscribe(topic);
-});
-client.on("message", (topic, message) => {
-  const data = message.toString();
-  if (topic == "semillero1") {
-    jsonData = JSON.parse(data);
-    updateSensorReadings(jsonData);
-    let Temperatura = jsonData.temperatura;
-    let humedad_relativa = jsonData.humedad_rel;
-    let Hum_suelo = jsonData.humedad_suelo;
-    let luminosidadrecibida = jsonData.luminosidad;
-    var today = new Date();
-    var now = today.toLocaleString();
-    console.log(now);
-    ActualizarGrafico(graphTemp,now,Temperatura);
-    ActualizarGrafico(graphHumedad_rel,now,humedad_relativa);
-    ActualizarGrafico(graphHumedad_suelo,now,Hum_suelo);
-    ActualizarGrafico(graphLuminosidad,now,luminosidadrecibida);
-
-  }
-});
-
 
 document.addEventListener("DOMContentLoaded", () => {
-  fetchMQTTConnection();
+  
   Plotly.newPlot(
     temperatureHistoryDiv,
     [temperatureTrace],
@@ -388,8 +387,76 @@ document.addEventListener("DOMContentLoaded", () => {
     config
   );
   Plotly.newPlot(humidityHistoryDiv, [humidityTrace], humidityLayout, config);
-  Plotly.newPlot(soilhumidityHistoryDiv, [soilhumidityTrace], soilhumidityLayout, config);
-  Plotly.newPlot(luminosityHistoryDiv, [luminosityTrace], luminosityLayout, config);
+  Plotly.newPlot(
+    soilhumidityHistoryDiv,
+    [soilhumidityTrace],
+    soilhumidityLayout,
+    config
+  );
+  Plotly.newPlot(
+    luminosityHistoryDiv,
+    [luminosityTrace],
+    luminosityLayout,
+    config
+  );
+});
+// Obtener una referencia al botón y al input para seleccionar semillero
+const semselectionButton = document.getElementById("semselection");
+const semilleroInput = document.getElementById("semillero");
+function initialize_graphic(lineChartDiv,xArray,yArray){
+  var data_update = {
+    x: [xArray],
+    y: [yArray],
+  };
+  
+  Plotly.update(lineChartDiv, data_update);
+}
+
+semselectionButton.addEventListener("click", function () {
+  newTempXArray = [];
+  newTempYArray = [];
+
+  newHumidityXArray = [];
+  newHumidityYArray = [];
+
+  newSoilhumidityXArray = [];
+  newSoilhumidityYArray = [];
+
+  newLuminosityXArray = [];
+  newLuminosityYArray = [];
+  const semilleroValue = semilleroInput.value.toString();
+  topico = "semilleros/" + semilleroValue;
+  console.log(topico);
+  // Realiza la petición GET usando fetch
+  fetch(`/obtenerdatos?id=${semilleroValue}`)
+    .then((response) => {
+      if (!response.ok) {
+        throw new Error(`Error HTTP: ${response.status}`);
+      }
+      return response.json(); // o .text() si esperas una respuesta en texto
+    })
+    .then((data) => {
+      // Maneja la respuesta del servidor
+      data.forEach(medicion=>{
+        newTempYArray.push(medicion.temperatura)
+        newHumidityYArray.push(medicion.humedad_rel)
+        newSoilhumidityYArray.push(medicion.humedad_suelo)
+        newLuminosityYArray.push(medicion.luminosidad)
+        newTempXArray.push(medicion.fecha_hora)
+        newHumidityXArray.push(medicion.fecha_hora)
+        newSoilhumidityXArray.push(medicion.fecha_hora)
+        newLuminosityXArray.push(medicion.fecha_hora)
+      })
+      initialize_graphic(temperatureHistoryDiv,newTempXArray,newTempYArray);
+      initialize_graphic(humidityHistoryDiv,newHumidityXArray,newHumidityYArray);
+      initialize_graphic(soilhumidityHistoryDiv,newSoilhumidityXArray,newSoilhumidityYArray);
+      initialize_graphic(luminosityHistoryDiv,newLuminosityXArray,newLuminosityYArray);
+      console.log(data);
+    })
+    .catch((error) => {
+      console.error("Error:", error);
+    });
+  console.log("Valor del input:", semilleroValue);
 });
 
 // document.addEventListener("DOMContentLoaded", () => {

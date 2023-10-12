@@ -3,6 +3,8 @@ const router = express.Router();
 const db = require("../../db");
 const login_controllers = require("../controllers/login_controller");
 const semilleros_controllers = require("../controllers/semilleros_controller");
+const registro_controllers = require("../controllers/registro_controller");
+const main_controllers = require("../controllers/main_controller");
 const { DateTime } = require("luxon");
 
 router.get("/", (req, res) => {
@@ -33,31 +35,15 @@ router.post(
   "/eliminar-semillero/:id",
   semilleros_controllers.eliminar_semillero
 );
+//Rutas para el dashboard
+router.get("/main", main_controllers.main);
 
-router.get("/main", (req, res) => {
-  if (req.session.loggedin) {
-    res.render("main");
-  } else {
-    res.redirect("/login");
-  }
-});
+router.get('/obtenerdatos', main_controllers.obtenerDatos);
+//Rutas para el registro
+router.get("/registro", registro_controllers.registro);
+router.post("/registro2", registro_controllers.actualizarRegistro);
 
-router.get("/registro", (req, res) => {
-  if (req.session.loggedin) {
-    res.render("registro");
-  } else {
-    res.redirect("/login");
-  }
-});
 
-router.get("/mqttConnDetails", (req, res) => {
-  res.send(
-    JSON.stringify({
-      mqttServer: "ws://192.168.1.7:9001/mqtt",
-      mqttTopic: "semillero1",
-    })
-  );
-});
 
 router.get("/api/ultimos-datos", (req, res) => {
   const query =

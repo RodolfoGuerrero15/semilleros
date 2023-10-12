@@ -1,3 +1,4 @@
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap");
 :root {
     --color-primary: #7380ec;
     --color-danger: #ff7782;
@@ -51,6 +52,40 @@ html {
     font-size: 14px;
     font-family: sans-serif;
   }
+  h1 {
+    font-weight: 800;
+    font-size: 2rem;
+  }
+  h2 {
+    font-size: 1.5rem;
+  }
+  h3 {
+    font-size: 1rem;
+  }
+  h4 {
+    font-size: 0.8rem;
+  }
+  h5 {
+    font-size: 0.77rem;
+  }
+  small {
+    font-size: 0.75rem;
+  }
+  .profile-photo {
+    width: 2.8rem;
+    height: 2.8rem;
+    border-radius: 50%;
+    overflow: hidden;
+  }
+  .text-muted {
+    color: var(--color-info-light);
+  }
+  p {
+    color: var(--color-dark-variant);
+  }
+  b {
+    color: var(--color-dark-variant);
+  }
 .semillero {
     border: 1px solid #ccc;
     margin: 10px;
@@ -58,8 +93,9 @@ html {
     width: calc(33.33% - 20px); /* Tres productos por fila con margen */
     float: left; /* Distribución en línea */
     box-sizing: border-box; /* Incluye el borde en el ancho y alto */
-    background-color: #7d8da1;
-    border-radius:var(--border-radius-2);
+    background-color: #090d3e;
+    border-radius:var(--border-radius-3);
+    color:#ccc;
   }
   
   /* Limpia el salto de línea después de cada fila de productos */
@@ -102,7 +138,7 @@ html {
     margin-top: 15px;
     background-color: #ff3333; /* Color de fondo rojo */
     color: white; /* Color de texto blanco */
-    margin-right: 15px;
+    
   }
   
   /* Estilos para el botón de modificar */
@@ -110,6 +146,7 @@ html {
     background-color: #007bff; /* Color de fondo azul */
     color: white; /* Color de texto blanco */
     margin-top: 15px;
+    margin-right: 15rem;
   }
   
   /* Estilos adicionales si se desea cambiar la apariencia al pasar el ratón sobre el botón */
@@ -123,6 +160,12 @@ html {
   }
   .medio span{
     font-size: 60px;
+    background: var(--color-primary);
+    padding: 0.5rem;
+   border-radius: 50%;
+    color: var(--color-white);
+    margin-right: 2rem;
+   
   }
   .temperatura{
     text-align: right;
@@ -134,10 +177,25 @@ html {
   }
 
   .barra{
-    display:flex
+    display:flex;
+    justify-content: space-between; /* Añadir espacio entre los enlaces */
   }
   .barra a{
     margin:10px 10px;
     text-decoration: none;
     color:#0b0f4a;
+    display: flex;
+  }
+  .barra a span{
+    
+    margin-top: 1.2rem;
+    margin-right: 1rem;
+    
+  }
+  .barra a:last-child{
+    margin-left: auto; /* Empujar el último enlace a la derecha */
+  }
+  .abajo{
+    display: flex;
+    justify-content: center;
   }

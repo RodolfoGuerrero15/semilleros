@@ -278,18 +278,18 @@ main .insights > div span {
 }
 
 main .insights > div.temperature span {
-  background: var(--color-insight-1);
+  background: var(--color-insight-3);
 }
 
 main .insights > div.humidity span {
-  background: var(--color-insight-2);
+  background: var(--color-insight-4);
 }
 
 main .insights > div.pressure span {
-  background: var(--color-insight-3);
+  background: var(--color-insight-1);
 }
 main .insights > div.altitude span {
-  background: var(--color-insight-4);
+  background: var(--color-insight-2);
 }
 
 main .insights > div .middle {

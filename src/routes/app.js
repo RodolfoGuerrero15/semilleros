@@ -39,6 +39,9 @@ router.post(
 router.get("/main", main_controllers.main);
 
 router.get('/obtenerdatos', main_controllers.obtenerDatos);
+router.post('/programarRiego',main_controllers.programarRiego);
+router.get('/obtenerdatosRiego', main_controllers.obtenerDatosRiego);
+router.post('/modificarTemp',main_controllers.actualizarTemp);
 //Rutas para el registro
 router.get("/registro", registro_controllers.registro);
 router.post("/registro2", registro_controllers.actualizarRegistro);

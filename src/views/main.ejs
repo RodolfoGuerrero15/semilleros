@@ -157,15 +157,20 @@
             
             <div class="left">
               <h2>Riego</h2>
-              <button class="encender">Encender</button>
-              <button class="apagar">Apagar</button>
-              <h4>Programar hora de riego</h4>
-              <form action="/programarRiego" method="post">
+              
+              <form action="/programarRiego" id="riegoForm">
+                <h4>Programar hora de riego</h4>
                 <input type="datetime-local" id="fechaHora" name="fechaHora"><br>
+                <h4>Intervalo de riego:(horas)</h4>
+                <input type="number" id="frecuencia" name="frecuencia"><br>
                 <!-- Otros campos del formulario -->
                 <button type="submit">Enviar</button>
             </form>
-              <h4>Estado actual: Encendido</h4>
+              <h4>Proxima Hora de riego: <br><b id="HoraRiego"></b></h4>
+              <h4>Frecuencia de riego actual: <b id="frecuenciaHTML"></b> Horas</h4>
+              <button id="refreshButton">
+                <span class="material-symbols-sharp">refresh</span>
+              </button>
             </div>  
             
               <div class="icon">
@@ -178,12 +183,12 @@
               <button class="encender">Encender</button>
               <button class="apagar">Apagar</button>
               <h4>Modificar temperatura límite</h4>
-              <form action="/modificartemp" method="post">
-                <input type="number" id="number" name="number"><br>
+              <form id="tempForm" method="post">
+                <input type="number" id="temperaturalim" name="temperaturalim"><br>
                 <!-- Otros campos del formulario -->
                 <button type="submit">Enviar</button>
             </form>
-              <h4>Estado actual: Encendido</h4>
+              <h4>Temperatura actual: <b id="temperaturaHTML"></b> °C</h4>
             </div>  
             <div class="icon">
               <span class="material-symbols-sharp"> mode_fan </span>

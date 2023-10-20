@@ -11,7 +11,94 @@
     />
 </head>
 <body>
-    <div class="barra">
+  <div class="container">
+      
+    <aside>
+      <div class="top">
+        <div class="logo">
+          <img src="logo.png" alt="" />
+          <h2>Semilleros</h2>
+        </div>
+        <div class="close" id="close-btn">
+          <span class="material-symbols-sharp"> close </span>
+        </div>
+      </div>
+      <div class="sidebar">
+        <a href="main" >
+          <span class="material-symbols-sharp"> dashboard </span>
+          <h3>Dashboard</h3>
+        </a>
+        <a href="semilleros" class="active" >
+          <span class="material-symbols-sharp"> dashboard </span>
+          <h3>Semilleros</h3>
+        </a>
+        <a href="registro" >
+          <span class="material-symbols-sharp">bar_chart</span>
+          <h3>Registro</h3>
+        </a>
+        
+        <a href="#">
+          <span class="material-symbols-sharp"> logout </span>
+          <form method="POST" action="/logout">
+            <button class="logout" type="submit">Cerrar sesión</button>
+          </form>
+        </a>
+        
+      </div>
+      
+
+    </aside>
+    <main>
+     
+      <div class="histories">
+        <div class="up">
+          <h2>Semilleros</h2>
+          <a href="agregar-semillero">
+          <span class="material-symbols-sharp">add</span>
+          <h2>Agregar semillero</h2>
+        </a>
+        </div>
+        
+        <div class="semilleros">
+        <% semilleros.forEach(function(semillero) { %>
+          <div class="semillero">
+            <div class="arriba">
+                <h1>Semillero #<%= semillero.id %></h1>
+                
+            </div>
+            <div class="medio">
+                <div class="semilla">
+                    <span class="material-symbols-sharp">potted_plant</span>
+                    <h2>Semilla:<br> <%= semillero.semilla %></h2>
+                </div>
+                <div class="temperatura">
+                    <span class="material-symbols-sharp">thermostat</span>
+                <h2>Temperatura ideal:<br> <%= semillero.temp_ideal %>°C</h2>
+                </div>
+                
+            </div>
+            
+            <div class="descripcion">
+            <h3>Descripción: <%= semillero.description %></h3>
+
+          </div>
+            <div class="abajo">
+              <form action="/modificar-semillero/<%= semillero.id %>" method="get">
+                <button class="boton modificar" type="submit">Modificar</button>
+              </form>
+              <h3>Fecha de inicio de siembra: <%= semillero.fecha_inicio %></h3>
+              <form action="/eliminar-semillero/<%= semillero.id %>" method="post">
+                <button class="boton eliminar" type="submit">Eliminar</button>
+              </form>
+            </div>
+          
+          </div>
+        <% }); %>
+      </div>
+      </div>
+    
+    </main>
+    <!-- <div class="barra">
         <a href="agregar-semillero">
           <span class="material-symbols-sharp">add</span>
           <h2>Agregar semillero</h2>
@@ -20,40 +107,9 @@
           <span class="material-symbols-sharp">arrow_back</span>
           <h2>Volver al dashboard</h2>
         </a>
+    <
+     -->
     </div>
-    
-    <% semilleros.forEach(function(semillero) { %>
-      <div class="semillero">
-        <div class="arriba">
-            <h1>Semillero #<%= semillero.id %></h1>
-            
-        </div>
-        <div class="medio">
-            <div class="semilla">
-                <span class="material-symbols-sharp">potted_plant</span>
-                <h2>Semilla: <%= semillero.semilla %></h2>
-            </div>
-            <div class="temperatura">
-                <span class="material-symbols-sharp">thermostat</span>
-            <h2>Temperatura ideal: <%= semillero.temp_ideal %>°C</h2>
-            </div>
-            
-        </div>
-        
-        
-        <h3>Descripción: <%= semillero.description %></h3>
-        <h3>Fecha de inicio de siembra: <%= semillero.fecha_inicio %></h3>
-        <div class="abajo">
-          <form action="/modificar-semillero/<%= semillero.id %>" method="get">
-            <button class="boton modificar" type="submit">Modificar</button>
-          </form>
-          <form action="/eliminar-semillero/<%= semillero.id %>" method="post">
-            <button class="boton eliminar" type="submit">Eliminar</button>
-          </form>
-        </div>
-      
-      </div>
-    <% }); %>
   
     
   </body>

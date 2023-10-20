@@ -1,7 +1,10 @@
 var topico;
-var client = mqtt.connect("ws://broker.emqx.io:8083/mqtt", {
+var idsemillero=0;
+var client = mqtt.connect("ws://3.89.104.254:9001/mqtt", {
   // Reemplaza "tu_servidor_mqtt" con la URL de tu servidor MQTT
-  port: 8083,
+  username: 'Rodolfo',
+  password: 'semilleros',
+  port: 9001,
   protocol: "ws",
   rejectUnauthorized: false, // Opcionalmente, establece a true si no deseas aceptar certificados no confiables
 });
@@ -83,20 +86,20 @@ var temperatureLayout = {
     family: "poppins, san-serif",
   },
   colorway: ["#05AD86"],
-  margin: { t: 40, b: 40, l: 30, r: 30, pad: 10 },
+  margin: { t: 40, b: 40, l: 30, r: 30, pad: 0 },
   plot_bgcolor: chartBGColor,
   paper_bgcolor: chartBGColor,
   xaxis: {
     color: chartAxisColor,
     linecolor: chartAxisColor,
     gridwidth: "2",
-    autorange: true,
+    
   },
   yaxis: {
     color: chartAxisColor,
     linecolor: chartAxisColor,
     gridwidth: "2",
-    autorange: true,
+    
   },
 };
 var humidityLayout = {
@@ -413,6 +416,7 @@ function initialize_graphic(lineChartDiv,xArray,yArray){
 }
 
 semselectionButton.addEventListener("click", function () {
+  idsemillero=semilleroInput.value
   newTempXArray = [];
   newTempYArray = [];
 
@@ -440,6 +444,7 @@ semselectionButton.addEventListener("click", function () {
       data.forEach(medicion=>{
         newTempYArray.push(medicion.temperatura)
         newHumidityYArray.push(medicion.humedad_rel)
+        console.log(medicion.fecha_hora)
         newSoilhumidityYArray.push(medicion.humedad_suelo)
         newLuminosityYArray.push(medicion.luminosidad)
         newTempXArray.push(medicion.fecha_hora)
@@ -447,6 +452,7 @@ semselectionButton.addEventListener("click", function () {
         newSoilhumidityXArray.push(medicion.fecha_hora)
         newLuminosityXArray.push(medicion.fecha_hora)
       })
+      updateBoxes(newTempYArray[0],newHumidityYArray[0],newSoilhumidityYArray[0],newLuminosityYArray[0]);
       initialize_graphic(temperatureHistoryDiv,newTempXArray,newTempYArray);
       initialize_graphic(humidityHistoryDiv,newHumidityXArray,newHumidityYArray);
       initialize_graphic(soilhumidityHistoryDiv,newSoilhumidityXArray,newSoilhumidityYArray);
@@ -457,8 +463,104 @@ semselectionButton.addEventListener("click", function () {
       console.error("Error:", error);
     });
   console.log("Valor del input:", semilleroValue);
+  console-log(newLuminosityXArraY);
 });
 
+const riegoForm = document.getElementById("riegoForm");
+const frecuenciaHTML= document.getElementById('frecuenciaHTML');
+const RiegoHTML= document.getElementById('HoraRiego');
+
+
+riegoForm.addEventListener("submit", async (event) => {
+  event.preventDefault();
+  const id = idsemillero;
+  console.log(id)
+  if(idsemillero==0){
+    //escribir error
+  }
+  const fechaHora = document.getElementById("fechaHora").value;
+  const frecuencia = document.getElementById("frecuencia").value;
+  console.log(fechaHora)
+  frecuenciaHTML.innerHTML=frecuencia;
+  RiegoHTML.innerHTML=fechaHora;
+  try {
+    const response = await fetch("/programarRiego", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ id, fechaHora,frecuencia }),
+    });
+
+    if (response.ok) {
+      const responseData = await response.json();
+      console.log(responseData.message);
+    } else {
+      console.error("Error en la respuesta del servidor");
+    }
+  } catch (error) {
+    console.error("Error en la comunicación con el servidor:", error);
+  }
+});
+
+const tempForm = document.getElementById("tempForm");
+
+
+tempForm.addEventListener("submit", async (event) => {
+  event.preventDefault();
+  const id = idsemillero;
+  const temperaturalim = document.getElementById("temperaturalim").value;
+  const topicotemp='temp/'+id.toString();
+  client.publish(topicotemp,temperaturalim);
+  temperaturaHTML.innerHTML=temperaturalim;
+
+  try {
+    const response = await fetch("/modificarTemp", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ id, temperaturalim }),
+    });
+
+    if (response.ok) {
+      const responseData = await response.json();
+      console.log(responseData.message);
+    } else {
+      console.error("Error en la respuesta del servidor");
+    }
+  } catch (error) {
+    console.error("Error en la comunicación con el servidor:", error);
+  }
+});
+
+const refreshButton = document.getElementById('refreshButton');
+
+// Agrega un controlador de eventos al botón que se activará cuando se haga clic.
+refreshButton.addEventListener('click', () => {
+  // Realiza una solicitud GET a la URL deseada.
+  fetch(`/obtenerDatosRiego?id=${idsemillero}`, {
+    method: 'GET',
+    // Puedes agregar más opciones, como encabezados, según tus necesidades.
+  })
+  .then(response => {
+    if (response.ok) {
+      // La solicitud fue exitosa, puedes realizar acciones adicionales aquí si es necesario.
+      console.log('Solicitud GET exitosa');
+      return response.json();
+    } else {
+      console.error('Error en la solicitud GET');
+    }
+  })
+  .then((data)=>{
+    console.log(data)
+    frecuenciaHTML.innerHTML=data[0].frecuencia;
+    RiegoHTML.innerHTML=data[0].prox_hora_riego;
+  })
+  .catch(error => {
+    console.error('Error en la solicitud GET:', error);
+  });
+});
 // document.addEventListener("DOMContentLoaded", () => {
 //   const enviarDatosBtn = document.getElementById("enviarDatos");
 //   const temperaturaInput = document.getElementById("temperaturaInput");

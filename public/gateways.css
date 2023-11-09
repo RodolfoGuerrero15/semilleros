@@ -231,17 +231,17 @@
     margin-top: 0.2rem;
   }
   
-  main .semilleros {
+  main .gateways {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     gap: 2rem;
-    background: var(--color-dark-variant);
+    background: var(--color-primary);
     border-radius: var(--border-radius-1);
     padding: var(--card-padding);
     text-align: left;
     box-shadow: var(--box-shadow);
   }
-  main .semilleros:hover {
+  main .gateways:hover {
     box-shadow: none;
   }
   
@@ -251,7 +251,7 @@
     margin-bottom: 0.8rem;
   }
   
-.semillero {
+.gateway {
   background: var(--color-white);
   padding: var(--card-padding);
   border-radius: var(--card-border-radius);
@@ -319,31 +319,21 @@
 
   .medio{
     display:flex;
-    justify-content: space-between;
+    justify-content: left;
   }
   .medio span{
     font-size: 60px;
     
     padding: 0.5rem;
    border-radius: 50%;
-    color: var(--color-white);
+    color: var(--color-danger);
     margin-right: 1rem;
    
   }
-  .temperatura{
-    text-align: right;
-    display: flex;
+  .medio h3{
+    margin-top:1rem;
   }
-  .temperatura span{
-    background: #E74C3C;
-  }
-  .semilla{
-    text-align: left;
-    display: flex;
-  }
-  .semilla span{
-    background: #2ECC71;
-  }
+  
   
   .descripcion{
     margin-top: 1rem;
@@ -366,11 +356,12 @@
   justify-content:space-between;
 
 }
+
 .up a{
   text-decoration: none; /* Quita la decoración del enlace */
   display: flex; /* Utilizamos flexbox para centrar el icono verticalmente con el texto */
   align-items: center; /* Centra verticalmente los elementos en el enlace */
-  background: var(--color-white);
+  background: var(--color-background);
   justify-content: center;
     gap: 1rem;
     margin-bottom: 0.5rem;

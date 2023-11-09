@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Modificar semillero</title>
+  <title>Modificar gateway</title>
   <style>
     body {
       font-family: Arial, sans-serif;
@@ -51,28 +51,20 @@
   </style>
 </head>
 <body>
-    <h1>Agregar Nuevo Semillero</h1>
-    <form action="/agregar-semillero" method="post">
+    <h1>Agregar Nuevo Gateway</h1>
+    <form action="/agregar-gateway" method="post">
     <label for="id">ID:</label>
     <input type="number" id="id" name="id"  required>
     <br>
-        <label for="semilla">Semilla:</label>
-    <input type="text" id="semilla" name="semilla"  required>
+        <label for="longitud">Longitud:</label>
+    <input type="text" id="longitud" name="longitud"  required>
     <br>
-    <label for="temp_ideal">Temperatura ideal de siembra:</label>
-    <input type="text" id="temp_ideal" name="temp_ideal"  required>
+    <label for="latitud">Latitud:</label>
+    <input type="text" id="latitud" name="latitud"  required>
     <br>
-    <label for="description">Descripción:</label>
-    <textarea id="description" name="description" required></textarea>
-    <br>
-    <label for="fecha_inicio">Fecha de Inicio:</label>
-    <input type="date" id="fecha_inicio" name="fecha_inicio"  required>
-    <br>
-        <button type="submit">Agregar Semillero</button>
+    
+   
+        <button type="submit">Agregar gateway</button>
       </form>
-    <br>
-    <% if (error) { %>
-      <p style="color: red;"><%= error %></p>
-  <% } %>
 </body>
 </html>

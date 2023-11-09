@@ -1,6 +1,6 @@
 var topico;
 var idsemillero=0;
-var client = mqtt.connect("ws://3.89.104.254:9001/mqtt", {
+var client = mqtt.connect("ws://3.90.250.198:9001/mqtt", {
   // Reemplaza "tu_servidor_mqtt" con la URL de tu servidor MQTT
   username: 'Rodolfo',
   password: 'semilleros',
@@ -271,6 +271,7 @@ const fechaHoraFormateada = `${año}-${mes}-${dia} ${hora}`;
 
   xArray.push(fechaHoraFormateada);
   yArray.push(parseFloat(sensorRead));
+  console.log(xArray[0])
   console.log(xArray)
   console.log(yArray)
   var data_update = {
@@ -463,7 +464,7 @@ semselectionButton.addEventListener("click", function () {
       console.error("Error:", error);
     });
   console.log("Valor del input:", semilleroValue);
-  console-log(newLuminosityXArraY);
+  
 });
 
 const riegoForm = document.getElementById("riegoForm");
@@ -510,7 +511,7 @@ tempForm.addEventListener("submit", async (event) => {
   event.preventDefault();
   const id = idsemillero;
   const temperaturalim = document.getElementById("temperaturalim").value;
-  const topicotemp='temp/'+id.toString();
+  const topicotemp='temperatura/'+id.toString();
   client.publish(topicotemp,temperaturalim);
   temperaturaHTML.innerHTML=temperaturalim;
 
@@ -556,6 +557,30 @@ refreshButton.addEventListener('click', () => {
     console.log(data)
     frecuenciaHTML.innerHTML=data[0].frecuencia;
     RiegoHTML.innerHTML=data[0].prox_hora_riego;
+  })
+  .catch(error => {
+    console.error('Error en la solicitud GET:', error);
+  });
+});
+const refreshButton2 = document.getElementById('refreshButton2');
+refreshButton2.addEventListener('click', () => {
+  // Realiza una solicitud GET a la URL deseada.
+  fetch(`/obtenerDatosTemp?id=${idsemillero}`, {
+    method: 'GET',
+    // Puedes agregar más opciones, como encabezados, según tus necesidades.
+  })
+  .then(response => {
+    if (response.ok) {
+      // La solicitud fue exitosa, puedes realizar acciones adicionales aquí si es necesario.
+      console.log('Solicitud GET exitosa');
+      return response.json();
+    } else {
+      console.error('Error en la solicitud GET');
+    }
+  })
+  .then((data)=>{
+    console.log(data)
+    temperaturaHTML.innerHTML=data[0].valor_lim;
   })
   .catch(error => {
     console.error('Error en la solicitud GET:', error);

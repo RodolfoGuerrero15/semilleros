@@ -209,7 +209,7 @@ dataForm.addEventListener("submit", async (event) => {
   const fechaFin = document.getElementById("fechaHoraFin").value;
 
   try {
-    const response = await fetch("/registro2", {
+    const response = await fetch("/registro", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

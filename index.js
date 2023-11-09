@@ -4,7 +4,7 @@ const app = express();
 const port = 3000;
 const mqtt = require("mqtt");
 // const client= mqtt.connect('mqtt://broker.emqx.io')
- const client = mqtt.connect("mqtt://3.89.104.254",{ 
+ const client = mqtt.connect("mqtt://3.90.250.198",{ 
    username: 'Rodolfo',
    password: 'semilleros'
  });
@@ -21,6 +21,7 @@ client.on("connect", () => {
       console.log("error al suscribirse");
     }
   });
+  
 });
 
 client.on("message", (topic, message) => {
@@ -101,18 +102,18 @@ function actualizarRiego(){
           if(dato.prox_hora_riego<horaActualFormateada){
             id=dato.id_semillero;
             topico_riego="riego/"+id.toString();
-            client.publish(topico_riego,'1');
-            console.log('regando');
+            client.publish(topico_riego,"1");
+            console.log(`Regando en semillero ${id}`);
             variable=new Date(dato.prox_hora_riego);
             frecuencia=parseInt(dato.frecuencia);
             variable.setHours(variable.getHours() +frecuencia)
-            console.log(variable)
+            console.log(`Nueva hora de riego: ${variable}`);
             db.query(actualizarhora, [variable, id], (error, results) => {
               if (error) {
                   console.error('Error al actualizar la fila:', error);
                   
               } else {
-                  console.log('Fila actualizada correctamente');
+                  console.log('Hora de riego actualizada correctamente');
                   
               }
           });

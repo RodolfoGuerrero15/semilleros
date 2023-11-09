@@ -4,7 +4,8 @@
   "description": "Proyecto de mqtt",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "nodemon index.js"
   },
   "author": "",
   "license": "ISC",
@@ -17,5 +18,8 @@
     "moment-timezone": "^0.5.43",
     "mqtt": "^5.0.2",
     "mysql2": "^3.6.0"
+  },
+  "devDependencies": {
+    "nodemon": "^3.0.1"
   }
 }

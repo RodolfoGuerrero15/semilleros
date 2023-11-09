@@ -3,8 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Semilleros</title>
-    <link rel="stylesheet" href="semilleros.css">
+    <title>Nodos de enlace</title>
+    <link rel="stylesheet" href="gateways.css">
     <link
       href="https://fonts.googleapis.com/icon?family=Material+Symbols+Sharp"
       rel="stylesheet"
@@ -17,7 +17,7 @@
       <div class="top">
         <div class="logo">
           <img src="logo.png" alt="" />
-          <h2>Semilleros</h2>
+          <h2>Nodos de enlace</h2>
         </div>
         <div class="close" id="close-btn">
           <span class="material-symbols-sharp"> close </span>
@@ -28,11 +28,11 @@
           <span class="material-symbols-sharp"> dashboard </span>
           <h3>Dashboard</h3>
         </a>
-        <a href="gateway"  >
+        <a href="gateway"  class="active">
           <span class="material-symbols-sharp"> wifi </span>
           <h3>Nodos gateway</h3>
         </a>
-        <a href="semilleros" class="active" >
+        <a href="semilleros"  >
           <span class="material-symbols-sharp"> eco </span>
           <h3>Semilleros</h3>
         </a>
@@ -56,44 +56,40 @@
      
       <div class="histories">
         <div class="up">
-          <h2>Semilleros</h2>
-          <a href="agregar-semillero">
-          <span class="material-symbols-sharp">add</span>
-          <h2>Agregar semillero</h2>
-        </a>
+          <h2>Nodos gateway</h2>
+          <div class="boton-agregar">
+            <a href="agregar-gateway">
+              <span class="material-symbols-sharp">add</span>
+              <h2>Nuevo gateway</h2>
+            </a>
+          </div>
+          
         </div>
         
-        <div class="semilleros">
-        <% semilleros.forEach(function(semillero) { %>
-          <div class="semillero">
+        <div class="gateways">
+        <% gateways.forEach(function(gateway) { %>
+          <div class="gateway">
             <div class="arriba">
-                <h1>Semillero #<%= semillero.id %></h1>
-                
+                <h1>Gateway #<%= gateway.id %></h1>
             </div>
             <div class="medio">
-                <div class="semilla">
-                    <span class="material-symbols-sharp">potted_plant</span>
-                    <h2>Semilla:<br> <%= semillero.semilla %></h2>
-                </div>
-                <div class="temperatura">
-                    <span class="material-symbols-sharp">thermostat</span>
-                <h2>Temperatura ideal:<br> <%= semillero.temp_ideal %>°C</h2>
-                </div>
-                
+              <span class="material-symbols-sharp">location_on</span>
+              <div class="coordenadas">
+                <h3>Longitud: <%= gateway.longitud %></h3> 
+                <h3>Latitud: <%= gateway.latitud %></h3> 
+              </div>
             </div>
+            <br>
+            <h3>Semilleros asociados:</h3>
             
-            <div class="descripcion">
-            <h3>Descripción: <%= semillero.description %></h3> 
-            <h3>Estado de batería: 50%</h3>
-            <h3>Id de nodo gateway asociado: 1</h3>
-            </div>
+         
             
             <div class="abajo">
-              <form action="/modificar-semillero/<%= semillero.id %>" method="get">
+              <form action="/modificar-gateway/<%= gateway.id %>" method="get">
                 <button class="boton modificar" type="submit">Modificar</button>
               </form>
-              <h3>Fecha de inicio de siembra: <%= semillero.fecha_inicio %></h3>
-              <form action="/eliminar-semillero/<%= semillero.id %>" method="post">
+              
+              <form action="/eliminar-gateway/<%= gateway.id %>" method="post">
                 <button class="boton eliminar" type="submit">Eliminar</button>
               </form>
             </div>

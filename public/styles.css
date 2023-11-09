@@ -443,6 +443,17 @@ main .histories h2 {
     font-size: 1rem;
     background: #000;
   }
+  #refreshButton2 {
+    background: none; /* Fondo transparente */
+    border: none; /* Borde ninguno */
+    font-size: 5px; /* Tamaño de fuente personalizado */
+    padding: 2px 2px; /* Relleno personalizado (arriba/abajo izquierda/derecha) */
+    cursor: pointer;
+  }
+  #refreshButton2 span{
+    font-size: 1rem;
+    background: #000;
+  }
 
 
 

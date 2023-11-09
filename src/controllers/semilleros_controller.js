@@ -34,7 +34,7 @@ const semilleros=(req, res) => {
   }
 
   const agregar_semillero=(req, res) => {
-    res.render('agregar-semillero');
+    res.render('agregar-semillero',{error:''});
   }
   const modificar_semillero=(req, res) => {
     const productId = req.params.id;

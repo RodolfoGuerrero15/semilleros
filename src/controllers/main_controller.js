@@ -12,7 +12,7 @@ const main= (req, res) => {
 const obtenerDatos=(req, res) => {
     const numero = req.query.id;
     
-    const consulta = 'SELECT * FROM mediciones WHERE id_semillero = ? ORDER BY id DESC LIMIT 1';
+    const consulta = 'SELECT * FROM mediciones WHERE id_semillero = ? ORDER BY id DESC LIMIT 5';
   
     // Ejecutar la consulta
     db.query(consulta, [numero], (error, resultados) => {
@@ -84,6 +84,22 @@ const obtenerDatos=(req, res) => {
       res.json(resWithLocalTime);
     });
   }
+  const obtenerDatosTemp=(req,res)=>{
+    const numero = req.query.id;
+    
+    const consulta = 'SELECT valor_lim FROM actuadores WHERE id_semillero = ? AND tipo = "temp" ';
+  
+    // Ejecutar la consulta
+    db.query(consulta, [numero], (error, resultados) => {
+      if (error) {
+        console.error('Error en la consulta a la base de datos: ', error);
+        res.status(500).json({ error: 'Error en el servidor' });
+        return;
+      }
+      console.log(resultados)
+      res.json(resultados);
+    });
+  }
   const actualizarTemp=(req,res)=>{
       const data=req.body
       id=data.id
@@ -105,5 +121,6 @@ const obtenerDatos=(req, res) => {
     obtenerDatos,
     programarRiego,
     obtenerDatosRiego,
-    actualizarTemp
+    actualizarTemp,
+    obtenerDatosTemp
   }

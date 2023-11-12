@@ -1,8 +1,12 @@
 const mysql = require("mysql2"); 
 
 const db = mysql.createPool({
-    host: "localhost",
-    user: "usuario_semilleros",
+    // host: "localhost",
+    // user: "usuario_semilleros",
+    // password: "semilleros",
+    // database: "semilleros",
+    host: "node-database.cropk5yrqohv.us-east-1.rds.amazonaws.com",
+    user: "admin",
     password: "semilleros",
     database: "semilleros",
   });

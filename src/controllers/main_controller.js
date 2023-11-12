@@ -87,7 +87,7 @@ const obtenerDatos=(req, res) => {
   const obtenerDatosTemp=(req,res)=>{
     const numero = req.query.id;
     
-    const consulta = 'SELECT valor_lim FROM actuadores WHERE id_semillero = ? AND tipo = "temp" ';
+    const consulta = 'SELECT temp_lim, hum_limite FROM semilleros WHERE id = ?  ';
   
     // Ejecutar la consulta
     db.query(consulta, [numero], (error, resultados) => {
@@ -104,9 +104,10 @@ const obtenerDatos=(req, res) => {
       const data=req.body
       id=data.id
       temperatura=data.temperaturalim;
-      console.log(temperatura)
-      const sql = 'UPDATE actuadores SET valor_lim = ? WHERE id_semillero = ? AND tipo = "temp"';
-      db.query(sql, [temperatura, id], (error, results) => {
+      humedad=data.humedadlim;
+      console.log(data)
+      const sql = 'UPDATE semilleros SET temp_lim = ? , hum_limite= ? WHERE id = ? ';
+      db.query(sql, [temperatura,humedad, id], (error, results) => {
         if (error) {
             console.error('Error al actualizar la fila:', error);
             res.status(500).json({ message: 'Error en la base de datos' });

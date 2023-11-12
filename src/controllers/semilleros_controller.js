@@ -49,8 +49,8 @@ const semilleros=(req, res) => {
   
   const modificar_semillero_post=(req, res) => {
     const productId = req.params.id;
-    const { semilla, temp_ideal, description, fecha_inicio } = req.body;
-    const updatedProduct = { semilla, temp_ideal, description, fecha_inicio };
+    const { semilla, temp_ideal, description,id_gateway, fecha_inicio } = req.body;
+    const updatedProduct = { semilla, temp_ideal, description,id_gateway, fecha_inicio };
     db.query('UPDATE semilleros SET ? WHERE id = ?', [updatedProduct, productId], (err) => {
       if (err) {
         throw err;
@@ -72,8 +72,8 @@ const semilleros=(req, res) => {
 
 
   const agregar_semillero_post=(req, res) => {
-    const { id,semilla,temp_ideal,description,fecha_inicio } = req.body;
-    const producto = { id,semilla,temp_ideal,description,fecha_inicio };
+    const { id,semilla,temp_ideal,description,id_gateway,fecha_inicio } = req.body;
+    const producto = { id,semilla,temp_ideal,description,id_gateway,fecha_inicio };
   
     db.query('INSERT INTO semilleros SET ?', producto, (err) => {
       if (err) {
@@ -82,13 +82,23 @@ const semilleros=(req, res) => {
       res.redirect('/semilleros');
     });
   }
-
+const actualizarEstado=(req,res)=>{
+  db.query('SELECT id,estado_semillero from semilleros',(err,results)=>{
+    if(err){
+      throw(err);
+    }
+    else{
+      res.json(results);
+    }
+  })
+}
   module.exports={
     semilleros,
     agregar_semillero,
     agregar_semillero_post,
     modificar_semillero,
     modificar_semillero_post,
-    eliminar_semillero
+    eliminar_semillero,
+    actualizarEstado
 }
 

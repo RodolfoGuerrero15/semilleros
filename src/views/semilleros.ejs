@@ -76,16 +76,16 @@
                     <h2>Semilla:<br> <%= semillero.semilla %></h2>
                 </div>
                 <div class="temperatura">
-                    <span class="material-symbols-sharp">thermostat</span>
-                <h2>Temperatura ideal:<br> <%= semillero.temp_ideal %>°C</h2>
+                    <span class="material-symbols-sharp" id="estado_sem<%= semillero.id%>">power_settings_new</span>
+                <h2><b id="estado_html<%= semillero.id%>"><%= semillero.estado_semillero %><</b></h2>
                 </div>
                 
             </div>
             
             <div class="descripcion">
             <h3>Descripción: <%= semillero.description %></h3> 
-            <h3>Estado de batería: 50%</h3>
-            <h3>Id de nodo gateway asociado: 1</h3>
+            <h3>Estado de batería: <%= semillero.bateria %> %</h3>
+            <h3>Id de nodo gateway asociado: <%= semillero.id_gateway %></h3>
             </div>
             
             <div class="abajo">
@@ -117,6 +117,6 @@
      -->
     </div>
   
-    
+    <script src="semilleros.js"></script>
   </body>
 </html>

@@ -21,6 +21,7 @@ router.post("/logout", login_controllers.logout);
 
 // Ruta para paginas relacionadas a la gestion de semilleros
 router.get("/semilleros", semilleros_controllers.semilleros);
+router.get("/actualizarEstado", semilleros_controllers.actualizarEstado);
 router.get("/agregar-semillero/", semilleros_controllers.agregar_semillero);
 router.post(
   "/agregar-semillero",semilleros_middleware.validarId,

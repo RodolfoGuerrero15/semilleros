@@ -1,6 +1,6 @@
 var topico;
 var idsemillero=0;
-var client = mqtt.connect("ws://3.90.250.198:9001/mqtt", {
+var client = mqtt.connect("ws://34.224.58.45:9001/mqtt", {
   // Reemplaza "tu_servidor_mqtt" con la URL de tu servidor MQTT
   username: 'Rodolfo',
   password: 'semilleros',
@@ -511,17 +511,20 @@ tempForm.addEventListener("submit", async (event) => {
   event.preventDefault();
   const id = idsemillero;
   const temperaturalim = document.getElementById("temperaturalim").value;
+  const humedadlim = document.getElementById("humedadlim").value;
   const topicotemp='temperatura/'+id.toString();
+  const topicohum='humedad/'+id.toString();
   client.publish(topicotemp,temperaturalim);
+  client.publish(topicohum,humedadlim);
   temperaturaHTML.innerHTML=temperaturalim;
-
+  humedadHTML.innerHTML=humedadlim;
   try {
     const response = await fetch("/modificarTemp", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify({ id, temperaturalim }),
+      body: JSON.stringify({ id, temperaturalim,humedadlim }),
     });
 
     if (response.ok) {
@@ -580,7 +583,8 @@ refreshButton2.addEventListener('click', () => {
   })
   .then((data)=>{
     console.log(data)
-    temperaturaHTML.innerHTML=data[0].valor_lim;
+    temperaturaHTML.innerHTML=data[0].temp_lim;
+    humedadHTML.innerHTML=data[0].hum_limite;
   })
   .catch(error => {
     console.error('Error en la solicitud GET:', error);

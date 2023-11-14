@@ -316,7 +316,9 @@
   .boton:hover {
     opacity: 0.8;
   }
-
+  .semillerosAsociados{
+    display: inline-block;
+  }
   .medio{
     display:flex;
     justify-content: left;

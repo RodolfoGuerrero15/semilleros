@@ -47,6 +47,7 @@ router.post('/programarRiego',main_controllers.programarRiego);
 router.get('/obtenerdatosRiego', main_controllers.obtenerDatosRiego);
 router.get('/obtenerdatosTemp', main_controllers.obtenerDatosTemp);
 router.post('/modificarTemp',main_controllers.actualizarTemp);
+
 //Rutas para el registro
 router.get("/registro", registro_controllers.registro);
 router.post("/registro", registro_controllers.actualizarRegistro);
@@ -69,6 +70,7 @@ router.post(
   "/eliminar-gateway/:id",
   gateways_controllers.eliminar_gateway
 );
+router.get("/obtenerSemillerosAsociados",gateways_controllers.obtenerSemilleros);
 
 
 

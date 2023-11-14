@@ -1,4 +1,4 @@
-const db = require('../../db')
+const db = require('../../db');
 
 
 const semilleros=(req, res) => {
@@ -49,8 +49,8 @@ const semilleros=(req, res) => {
   
   const modificar_semillero_post=(req, res) => {
     const productId = req.params.id;
-    const { semilla, temp_ideal, description,id_gateway, fecha_inicio } = req.body;
-    const updatedProduct = { semilla, temp_ideal, description,id_gateway, fecha_inicio };
+    const { semilla, temp_lim, description,id_gateway,id_local, fecha_inicio } = req.body;
+    const updatedProduct = { semilla, temp_lim, description,id_gateway,id_local, fecha_inicio };
     db.query('UPDATE semilleros SET ? WHERE id = ?', [updatedProduct, productId], (err) => {
       if (err) {
         throw err;
@@ -72,8 +72,8 @@ const semilleros=(req, res) => {
 
 
   const agregar_semillero_post=(req, res) => {
-    const { id,semilla,temp_ideal,description,id_gateway,fecha_inicio } = req.body;
-    const producto = { id,semilla,temp_ideal,description,id_gateway,fecha_inicio };
+    const { id,semilla,temp_lim,description,id_gateway,id_local,fecha_inicio } = req.body;
+    const producto = { id,semilla,temp_lim,description,id_gateway,id_local,fecha_inicio };
   
     db.query('INSERT INTO semilleros SET ?', producto, (err) => {
       if (err) {

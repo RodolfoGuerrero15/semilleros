@@ -56,14 +56,17 @@
     <label for="semilla">Semilla:</label>
     <input type="text" id="semilla" name="semilla" value="<%= semillero.semilla %>" required>
     <br>
-    <label for="temp_ideal">Temperatura ideal de siembra:</label>
-    <input type="text" id="temp_ideal" name="temp_ideal" value="<%= semillero.temp_ideal %>" required>
+    <label for="temp_lim">Temperatura limite:</label>
+    <input type="text" id="temp_lim" name="temp_lim" value="<%= semillero.temp_lim %>" required>
     <br>
     <label for="description">Descripción:</label>
     <textarea id="description" name="description" required><%= semillero.description %></textarea>
     <br>
     <label for="id_gateway">Id de gateway asociado :</label>
     <input type="number" id="id_gateway" name="id_gateway" value="<%= semillero.id_gateway %>" required>
+    <br>
+    <label for="id_local">Id en red local :</label>
+    <input type="number" id="id_local" name="id_local" value="<%= semillero.id_local %>" required>
     <br>
     <label for="fecha_inicio">Fecha de Inicio:</label>
     <input type="date" id="fecha_inicio" name="fecha_inicio" value="<%= semillero.fecha_inicio %>" required>

@@ -4,7 +4,7 @@ const app = express();
 const port = 3000;
 const mqtt = require("mqtt");
 // const client= mqtt.connect('mqtt://broker.emqx.io')
- const client = mqtt.connect("mqtt://34.224.58.45",{ 
+ const client = mqtt.connect("mqtt://34.233.122.239",{ 
    username: 'Rodolfo',
    password: 'semilleros'
  });
@@ -34,41 +34,51 @@ client.on("message", (topic, message) => {
   const data = message.toString();
   console.log("Mensaje recibido: " + data + "del tópico " + topic);
   const ultimoCaracter = topic.charAt(topic.length - 1);
-  const id=parseInt(ultimoCaracter);
+  const id_topic=parseInt(ultimoCaracter);
   if(topic.startsWith("semilleros")){
     jsonData = JSON.parse(data);
     console.log("jsondata" + jsonData);
     const insertQuery =
       "INSERT INTO mediciones (id_semillero,temperatura, humedad_rel, luminosidad, humedad_suelo) VALUES (?,?, ?, ?, ?)";
-
-    const values = [
-      id,
-      jsonData.temperatura,
-      jsonData.humedad_rel,
-      jsonData.luminosidad,
-      jsonData.humedad_suelo,
-    ];
-    const bat=jsonData.bat;
-
-
-    db.query(insertQuery, values, (error, results) => {
-      if (error) {
-        console.error("Error al insertar el JSON:", error);
-      } else {
-        console.log("JSON insertado exitosamente");
-      }
-      db.query("UPDATE semilleros SET bateria = ? where id= ?",[bat,values[0]],(error,results)=>{
-        if(error){
-          console.error("Error al actualizar porcentaje de bateria");
-        }
-        else{
-          console.log("Bateria actualizada satisfactoriamente")
-        }
-      })
     
+   
 
+    db.query('SELECT id from semilleros where id_gateway= ? AND id_local= ? ',[jsonData.id_gateway,id_topic],(err,results)=>{
+      if(err){
+        console.log(err)
+      }
+      else{
+        console.log(results)
+        id=results[0].id;
+      }
+      const values = [
+        id,
+        jsonData.temperatura,
+        jsonData.humedad_rel,
+        jsonData.luminosidad,
+        jsonData.humedad_suelo,
+      ];
+      const bat=jsonData.bat;
+      db.query(insertQuery, values, (error, results) => {
+        if (error) {
+          console.error("Error al insertar el JSON:", error);
+        } else {
+          console.log("JSON insertado exitosamente");
+        }
+        db.query("UPDATE semilleros SET bateria = ? where id= ?",[bat,values[0]],(error,results)=>{
+          if(error){
+            console.error("Error al actualizar porcentaje de bateria");
+          }
+          else{
+            console.log("Bateria actualizada satisfactoriamente")
+          }
+        })
       
-    });
+      });
+    })
+
+    
+    
   }
   else if(topic.startsWith("gateway")){
     idgateway=parseInt(message);

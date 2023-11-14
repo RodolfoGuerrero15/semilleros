@@ -9,6 +9,7 @@ const gateways= (req, res) => {
       
       res.render('gateways', { gateways: rows });
       
+      
     });
   }
     else{
@@ -64,14 +65,28 @@ const gateways= (req, res) => {
       res.redirect('/gateway');
     });
   }
-
+const obtenerSemilleros=(req,res)=>{
+  id=req.query.id;
+  
+  consulta='SELECT id from semilleros where id_gateway = ?';
+  db.query(consulta,id,(err,results)=>{
+    if(err){
+      console.log(err);
+    }
+    else{
+      
+      res.json(results);
+    }
+  })
+}
 module.exports={
     gateways,
     agregar_gateway,
     agregar_gateway_post,
     eliminar_gateway,
     modificar_gateway,
-    modificar_gateway_post
+    modificar_gateway_post,
+    obtenerSemilleros
 }
 
 

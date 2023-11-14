@@ -175,7 +175,7 @@ var luminosityLayout = {
   },
 };
 
-var config = { responsive: true, displayModeBar: false };
+var config = { responsive: true, displayModeBar: true, scrollZoom:true };
 // Will hold the arrays we receive from our BME280 sensor
 // Temperature
 let newTempXArray = [];

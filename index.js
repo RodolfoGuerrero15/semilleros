@@ -4,7 +4,7 @@ const app = express();
 const port = 3000;
 const mqtt = require("mqtt");
 // const client= mqtt.connect('mqtt://broker.emqx.io')
- const client = mqtt.connect("mqtt://34.233.122.239",{ 
+ const client = mqtt.connect("mqtt://100.24.36.200",{ 
    username: 'Rodolfo',
    password: 'semilleros'
  });
@@ -35,11 +35,13 @@ client.on("message", (topic, message) => {
   console.log("Mensaje recibido: " + data + "del tópico " + topic);
   const ultimoCaracter = topic.charAt(topic.length - 1);
   const id_topic=parseInt(ultimoCaracter);
+  const zonaHorariaLima = 'America/Lima';
+  const horaActualLima = DateTime.local().setZone(zonaHorariaLima).toFormat('yyyy-MM-dd HH:mm:ss');
   if(topic.startsWith("semilleros")){
     jsonData = JSON.parse(data);
     console.log("jsondata" + jsonData);
     const insertQuery =
-      "INSERT INTO mediciones (id_semillero,temperatura, humedad_rel, luminosidad, humedad_suelo) VALUES (?,?, ?, ?, ?)";
+      "INSERT INTO mediciones (id_semillero,temperatura, humedad_rel, luminosidad, humedad_suelo,fecha_hora) VALUES (?,?, ?, ?, ?, ?)";
     
    
 
@@ -57,8 +59,10 @@ client.on("message", (topic, message) => {
         jsonData.humedad_rel,
         jsonData.luminosidad,
         jsonData.humedad_suelo,
+        horaActualLima
       ];
-      const bat=jsonData.bat;
+      console.log(values)
+      const bat=jsonData.bateria;
       db.query(insertQuery, values, (error, results) => {
         if (error) {
           console.error("Error al insertar el JSON:", error);
@@ -145,10 +149,12 @@ function actualizarRiego(){
           }
           return item;
         });
-        horaActual=new Date();
-        horaActualFormateada= DateTime.fromJSDate(horaActual).toFormat(
-          "yyyy-MM-dd HH:mm:ss"
-        )
+        const horaActual = new Date();
+        const zonaHorariaLima = 'America/Lima';
+
+        // Configura la zona horaria de Lima (Perú)
+        const horaLima = DateTime.fromJSDate(horaActual, { zone: zonaHorariaLima });
+        const horaActualFormateada = horaLima.toFormat('yyyy-MM-dd HH:mm:ss');
         resWithLocalTime.forEach((dato)=>{
           if(dato.prox_hora_riego<horaActualFormateada){
             id=dato.id_semillero;
@@ -201,10 +207,12 @@ const actualizarSemillerosEncendidos=()=>{
       });
       resWithLocalTime.forEach((result)=>{
         const id_semillero=result.id_semillero;
-        horaActual=new Date();
-        horaActualFormateada= DateTime.fromJSDate(horaActual).toFormat(
-          "yyyy-MM-dd HH:mm:ss"
-        )
+        const horaActual = new Date();
+        const zonaHorariaLima = 'America/Lima';
+
+        // Configura la zona horaria de Lima (Perú)
+        const horaLima = DateTime.fromJSDate(horaActual, { zone: zonaHorariaLima });
+        const horaActualFormateada = horaLima.toFormat('yyyy-MM-dd HH:mm:ss');
         //const diferenciaEnMinutos = horaActualFormateada.diff(result.ultima_fecha_hora, 'minutes').minutes;
         const hora1 = DateTime.fromFormat(result.ultima_fecha_hora, 'yyyy-MM-dd HH:mm:ss');
         const hora2 = DateTime.fromFormat(horaActualFormateada, 'yyyy-MM-dd HH:mm:ss');
@@ -230,4 +238,4 @@ const actualizarSemillerosEncendidos=()=>{
   })
 }
 const intervalo = setInterval(actualizarRiego, 60000); // cada minuto
-const actualizarEncendido = setInterval(actualizarSemillerosEncendidos, 60000*10); // cada 10 minutos
+const actualizarEncendido = setInterval(actualizarSemillerosEncendidos, 60000); // cada 10 minutos

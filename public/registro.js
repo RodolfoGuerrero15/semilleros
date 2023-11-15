@@ -234,6 +234,8 @@ dataForm.addEventListener("submit", async (event) => {
       initialize_graphic(humidityHistoryDiv,newHumidityXArray,newHumidityYArray);
       initialize_graphic(soilhumidityHistoryDiv,newSoilhumidityXArray,newSoilhumidityYArray);
       initialize_graphic(luminosityHistoryDiv,newLuminosityXArray,newLuminosityYArray);
+      mediaTemp=math.mean(newTempYArray);
+      console.log(mediaTemp)
     } else {
       console.error("Error en la respuesta del servidor");
     }

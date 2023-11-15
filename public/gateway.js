@@ -1,10 +1,10 @@
 const elementosGateway = document.querySelectorAll('[id^="gateway"]');
 let id=0;
 
-document.addEventListener('DOMContentLoaded',()=>{
+document.addEventListener('DOMContentLoaded',async ()=>{
     const numGateways=elementosGateway.length;
     for(i=0;i<numGateways;i++){
-        fetch(`/obtenerSemillerosAsociados?id=${i+1}`, {
+        await fetch(`/obtenerSemillerosAsociados?id=${i+1}`, {
             method: 'GET',
             // Puedes agregar más opciones, como encabezados, según tus necesidades.
           })

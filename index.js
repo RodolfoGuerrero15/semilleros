@@ -4,7 +4,7 @@ const app = express();
 const port = 3000;
 const mqtt = require("mqtt");
 // const client= mqtt.connect('mqtt://broker.emqx.io')
- const client = mqtt.connect("mqtt://100.24.36.200",{ 
+ const client = mqtt.connect("mqtt://54.163.28.158",{ 
    username: 'Rodolfo',
    password: 'semilleros'
  });
@@ -192,7 +192,7 @@ const actualizarSemillerosEncendidos=()=>{
       console.log(err);
     }
     else{
-      console.log(results);
+      
       const resWithLocalTime = results.map((item) => {
         if (item.ultima_fecha_hora) {
           dateParsed = new Date(item.ultima_fecha_hora.toString());
@@ -229,11 +229,9 @@ const actualizarSemillerosEncendidos=()=>{
           if(err){
             console.log(err);
           }
-          else{
-            console.log("Estado Actualizado")
-          }
         })
       })
+      console.log("Estados Actualizados")
     }
   })
 }

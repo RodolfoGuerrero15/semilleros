@@ -1,6 +1,6 @@
 var topico;
 var idsemillero=0;
-var client = mqtt.connect("ws://100.24.36.200:9001/mqtt", {
+var client = mqtt.connect("ws://54.163.28.158:9001/mqtt", {
   // Reemplaza "tu_servidor_mqtt" con la URL de tu servidor MQTT
   username: 'Rodolfo',
   password: 'semilleros',
@@ -289,98 +289,7 @@ function ActualizarGrafico(grafico, fecha, variable) {
   });
   grafico.update();
 }
-// const ctx = document.getElementById("GraficoTemperatura");
-// const ctx2 = document.getElementById("GraficoHum_rel");
-// const ctx3 = document.getElementById("GraficoHumedad_suelo");
-// const ctx4 = document.getElementById("GraficoLuminosidad");
-// var graphTemp = new Chart(ctx, {
-//   type: "line",
-//   data: {
-//     labels: ["Temperatura"],
-//     datasets: [
-//       {
-//         label: "Temperatura",
-//         data: [],
-//         borderWidth: 1,
-//         borderColor: '#009688',
-//         backgroundColor: '#009688'
-//       },
-//     ],
-//   },
-//   options: {
-//     scales: {
-//       y: {
-//         beginAtZero: true,
-//       },
-//     },
-//   },
-// });
-// var graphHumedad_rel = new Chart(ctx2, {
-//   type: "line",
-//   data: {
-//     labels: ["Humedad relativa"],
-//     datasets: [
-//       {
-//         label: "Humedad relativa",
-//         data: [],
-//         borderWidth: 1,
-//         borderColor: '#009688',
-//         backgroundColor: '#009688'
-//       },
-//     ],
-//   },
-//   options: {
-//     scales: {
-//       y: {
-//         beginAtZero: true,
-//       },
-//     },
-//   },
-// });
-// var graphHumedad_suelo = new Chart(ctx3, {
-//   type: "line",
-//   data: {
-//     labels: ["Humedad de suelo"],
-//     datasets: [
-//       {
-//         label: "Humedad de suelo",
-//         data: [],
-//         borderWidth: 1,
-//         borderColor: '#009688',
-//         backgroundColor: '#009688'
-//       },
-//     ],
-//   },
-//   options: {
-//     scales: {
-//       y: {
-//         beginAtZero: true,
-//       },
-//     },
-//   },
-// });
-// var graphLuminosidad = new Chart(ctx4, {
-//   type: "line",
-//   data: {
-//     labels: ["Luminosidad"],
-//     datasets: [
-//       {
-//         label: "Luminosidad",
-//         data: [],
-//         borderWidth: 1,
-//         borderColor: '#009688',
-//         backgroundColor: '#009688'
-//       },
-//     ],
-//   },
-//   options: {
-//     scales: {
-//       y: {
-//         beginAtZero: true,
-//       },
-//     },
-//   },
-// });
+
 
 document.addEventListener("DOMContentLoaded", () => {
   
@@ -470,7 +379,7 @@ semselectionButton.addEventListener("click", function () {
 const riegoForm = document.getElementById("riegoForm");
 const frecuenciaHTML= document.getElementById('frecuenciaHTML');
 const RiegoHTML= document.getElementById('HoraRiego');
-
+const errorRiego=document.getElementById('errorRiego')
 
 riegoForm.addEventListener("submit", async (event) => {
   event.preventDefault();
@@ -482,8 +391,7 @@ riegoForm.addEventListener("submit", async (event) => {
   const fechaHora = document.getElementById("fechaHora").value;
   const frecuencia = document.getElementById("frecuencia").value;
   console.log(fechaHora)
-  frecuenciaHTML.innerHTML=frecuencia;
-  RiegoHTML.innerHTML=fechaHora;
+  
   try {
     const response = await fetch("/programarRiego", {
       method: "POST",
@@ -495,7 +403,13 @@ riegoForm.addEventListener("submit", async (event) => {
 
     if (response.ok) {
       const responseData = await response.json();
-      console.log(responseData.message);
+      if(responseData.error){
+        errorRiego.innerHTML="La hora seleccionada ya ha pasado"
+      }else{
+        frecuenciaHTML.innerHTML=frecuencia;
+        RiegoHTML.innerHTML=fechaHora;
+      }
+      
     } else {
       console.error("Error en la respuesta del servidor");
     }
@@ -590,33 +504,6 @@ refreshButton2.addEventListener('click', () => {
     console.error('Error en la solicitud GET:', error);
   });
 });
-// document.addEventListener("DOMContentLoaded", () => {
-//   const enviarDatosBtn = document.getElementById("enviarDatos");
-//   const temperaturaInput = document.getElementById("temperaturaInput");
-//   const humedadRelInput = document.getElementById("humedadRelInput");
-//   const humedadSueloInput = document.getElementById("humedadSueloInput");
-//   const luminosidadInput = document.getElementById("luminosidadInput");
-
-//   enviarDatosBtn.addEventListener("click", () => {
-//     const datos = {
-//       temperatura: parseFloat(temperaturaInput.value),
-//       "humedad-rel": parseFloat(humedadRelInput.value),
-//       "humedad-suelo": parseFloat(humedadSueloInput.value),
-//       luminosidad: parseFloat(luminosidadInput.value),
-//     };
-
-//     // Publica los datos en el tópico MQTT
-//     client.publish("datos_semillero1", JSON.stringify(datos));
-
-//     // Limpia los inputs después de enviar los datos
-//     temperaturaInput.value = "";
-//     humedadRelInput.value = "";
-//     humedadSueloInput.value = "";
-//     luminosidadInput.value = "";
-//   });
-
-//   // ... (código para suscribirse y mostrar datos recibidos en la interfaz de usuario)
-// });
 
 const mediaQuery = window.matchMedia("(max-width: 600px)");
 

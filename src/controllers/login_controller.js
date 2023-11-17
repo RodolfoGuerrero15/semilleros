@@ -29,9 +29,9 @@ const login_post = (req, res) => {
     if (results.length === 1) {
       req.session.loggedin = true;
       req.session.username = username;
-      res.redirect("/main");
+      res.render("main", { error: "" });
     } else {
-      res.render("login", { error: "Usuario o contraseña incorrectos" });
+      res.render("login",{ error: "Usuario o contraseña incorrectos" });
     }
   });
 };

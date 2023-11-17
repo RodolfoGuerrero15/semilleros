@@ -8,6 +8,7 @@ const main_controllers = require("../controllers/main_controller");
 const gateways_controllers = require("../controllers/gateways_controller");
 const login_middleware= require("../middleware/login");
 const semilleros_middleware= require("../middleware/semilleros");
+const main_middleware= require("../middleware/main");
 const { DateTime } = require("luxon");
 
 router.get("/", (req, res) => {
@@ -43,7 +44,7 @@ router.post(
 router.get("/main", main_controllers.main);
 
 router.get('/obtenerdatos', main_controllers.obtenerDatos);
-router.post('/programarRiego',main_controllers.programarRiego);
+router.post('/programarRiego',main_middleware.validarHoraRiego,main_controllers.programarRiego);
 router.get('/obtenerdatosRiego', main_controllers.obtenerDatosRiego);
 router.get('/obtenerdatosTemp', main_controllers.obtenerDatosTemp);
 router.post('/modificarTemp',main_controllers.actualizarTemp);

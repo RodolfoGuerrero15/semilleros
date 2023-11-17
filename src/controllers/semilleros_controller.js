@@ -1,6 +1,8 @@
 const db = require('../../db');
 
-
+const semillas = ["Tomate", "Lechuga", "Camu camu", "Cacao"];
+const temperaturas=[28,28,28,28]
+const humedades=[80,80,80,80]
 const semilleros=(req, res) => {
     if (req.session.loggedin) {
     db.query('SELECT * FROM semilleros', (err, rows) => {
@@ -49,8 +51,17 @@ const semilleros=(req, res) => {
   
   const modificar_semillero_post=(req, res) => {
     const productId = req.params.id;
-    const { semilla, temp_lim, description,id_gateway,id_local, fecha_inicio } = req.body;
-    const updatedProduct = { semilla, temp_lim, description,id_gateway,id_local, fecha_inicio };
+    const posicion = semillas.indexOf(req.body.semilla);
+   
+    const { semilla, description,id_gateway,id_local, fecha_inicio } = req.body;
+    const updatedProduct = { semilla, description,id_gateway,id_local, fecha_inicio };
+   
+ 
+    const temp_lim=temperaturas[posicion];
+    const hum_lim=humedades[posicion];
+    updatedProduct.hum_limite=hum_lim
+    updatedProduct.temp_lim=temp_lim
+    
     db.query('UPDATE semilleros SET ? WHERE id = ?', [updatedProduct, productId], (err) => {
       if (err) {
         throw err;
@@ -72,9 +83,17 @@ const semilleros=(req, res) => {
 
 
   const agregar_semillero_post=(req, res) => {
-    const { id,semilla,temp_lim,description,id_gateway,id_local,fecha_inicio } = req.body;
-    const producto = { id,semilla,temp_lim,description,id_gateway,id_local,fecha_inicio };
+    const { id,semilla,description,id_gateway,id_local,fecha_inicio } = req.body;
+    const posicion = semillas.indexOf(req.body.semilla);
   
+    const temp_lim=temperaturas[posicion];
+    const hum_lim=humedades[posicion];
+    const producto = { id,semilla,temp_lim,description,id_gateway,id_local,fecha_inicio };
+    producto.hum_limite=hum_lim
+    producto.temp_lim=temp_lim
+    
+    
+    
     db.query('INSERT INTO semilleros SET ?', producto, (err) => {
       if (err) {
         throw err;

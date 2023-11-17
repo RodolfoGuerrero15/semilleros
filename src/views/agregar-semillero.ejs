@@ -48,6 +48,11 @@
     button[type="submit"]:hover {
       background-color: #0056b3;
     }
+    #semilla {
+      width: 100%; /* Ocupar todo el ancho horizontal */
+      font-size: 18px; /* Tamaño de fuente más grande */
+      padding: 10px; /* Añadir espacio interno para mejorar el aspecto */
+  }
   </style>
 </head>
 <body>
@@ -57,18 +62,21 @@
     <input type="number" id="id" name="id"  required>
     <br>
         <label for="semilla">Semilla:</label>
-    <input type="text" id="semilla" name="semilla"  required>
-    <br>
-    <label for="temp_ideal">Temperatura ideal de siembra:</label>
-    <input type="text" id="temp_ideal" name="temp_ideal"  required>
-    <br>
+        <br>
+        <select id="semilla" name="semilla">
+          <option value="Tomate">Tomate</option>
+          <option value="Lechuga">Lechuga</option>
+          <option value="Camu-camu">Camu Camu</option>
+          <option value="Cacao">Cacao</option>
+      </select>
+      <br>
     <label for="description">Descripción:</label>
     <textarea id="description" name="description" required></textarea>
     <br>
     <label for="id_gateway">Id de gateway asociado:</label>
-    <input type="number" id="id_gateway" name="id_local"  required>
+    <input type="number" id="id_gateway" name="id_gateway"  required>
     <br>
-    <label for="id_local">Id de gateway asociado:</label>
+    <label for="id_local">Id de red local:</label>
     <input type="number" id="id_local" name="id_local"  required>
     <br>
     <label for="fecha_inicio">Fecha de Inicio:</label>

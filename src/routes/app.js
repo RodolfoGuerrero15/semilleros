@@ -44,7 +44,7 @@ router.post(
 router.get("/main", main_controllers.main);
 
 router.get('/obtenerdatos', main_controllers.obtenerDatos);
-router.post('/programarRiego',main_middleware.validarHoraRiego,main_controllers.programarRiego);
+router.post('/programarRiego',main_controllers.programarRiego);
 router.get('/obtenerdatosRiego', main_controllers.obtenerDatosRiego);
 router.get('/obtenerdatosTemp', main_controllers.obtenerDatosTemp);
 router.post('/modificarTemp',main_controllers.actualizarTemp);

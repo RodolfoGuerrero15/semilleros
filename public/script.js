@@ -1,6 +1,6 @@
 var topico;
 var idsemillero=0;
-var client = mqtt.connect("ws://54.163.28.158:9001/mqtt", {
+var client = mqtt.connect("ws://174.129.115.160:9001/mqtt", {
   // Reemplaza "tu_servidor_mqtt" con la URL de tu servidor MQTT
   username: 'Rodolfo',
   password: 'semilleros',

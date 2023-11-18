@@ -40,4 +40,4 @@ const actualizarEstado=()=>{
       });
 }
 
-const intervalo=setInterval(actualizarEstado,120000);
+const intervalo=setInterval(actualizarEstado,30000);

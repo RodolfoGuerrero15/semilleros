@@ -1,8 +1,8 @@
 const db = require('../../db');
 
-const semillas = ["Tomate", "Lechuga", "Camu camu", "Cacao"];
-const temperaturas=[28,28,28,28]
-const humedades=[80,80,80,80]
+const semillas = ["Tomate", "Col", "Sacha-Inchi", "Cacao"];
+const temperaturas=[28,27,26,26]
+const humedades=[80,75,78,80]
 const semilleros=(req, res) => {
     if (req.session.loggedin) {
     db.query('SELECT * FROM semilleros', (err, rows) => {
@@ -52,7 +52,7 @@ const semilleros=(req, res) => {
   const modificar_semillero_post=(req, res) => {
     const productId = req.params.id;
     const posicion = semillas.indexOf(req.body.semilla);
-   
+   console.log(posicion)
     const { semilla, description,id_gateway,id_local, fecha_inicio } = req.body;
     const updatedProduct = { semilla, description,id_gateway,id_local, fecha_inicio };
    

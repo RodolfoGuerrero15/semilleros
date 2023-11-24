@@ -76,7 +76,7 @@ body {
   width: 96%;
   margin: 0 auto;
   gap: 1.8rem;
-  grid-template-columns: 14rem auto;
+  grid-template-columns: 14rem auto 18rem;
 }
 a {
   color: var(--color-dark);
@@ -284,9 +284,20 @@ main .history-charts .history-divs {
 main .histories h2 {
   margin-bottom: 0.8rem;
 }
-
-
-
+.right h1{
+  margin-top: 1.5rem;
+}
+.right h2{
+  margin-top: 2rem;
+}
+.right h3{
+  margin-top: 0.5rem;
+  color: var(--color-dark)
+}
+.right span{
+  display: inline-block;
+  color:#566573;
+}
 /* MEDIA QUERIES */
 @media screen and (max-width: 1200px) {
     .container {

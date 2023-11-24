@@ -4,7 +4,7 @@ const app = express();
 const port = 3000;
 const mqtt = require("mqtt");
 // const client= mqtt.connect('mqtt://broker.emqx.io')
- const client = mqtt.connect("mqtt://174.129.115.160",{ 
+ const client = mqtt.connect("mqtt://44.208.207.238",{ 
    username: 'Rodolfo',
    password: 'semilleros'
  });
@@ -21,7 +21,7 @@ client.on("connect", () => {
       console.log("error al suscribirse");
     }
   });
-  client.subscribe("gateway/#", (err) => {
+  client.subscribe("gatewaysemilleros/#", (err) => {
     if (err) {
       console.log("error al suscribirse");
     }
@@ -158,7 +158,7 @@ function actualizarRiego(){
         resWithLocalTime.forEach((dato)=>{
           if(dato.prox_hora_riego<horaActualFormateada){
             id=dato.id_semillero;
-            topico_riego="riego/"+id.toString();
+            topico_riego="riegosemilleros/"+id.toString();
             client.publish(topico_riego,"1");
             console.log(`Regando en semillero ${id}`);
             variable=new Date(dato.prox_hora_riego);
@@ -220,7 +220,7 @@ const actualizarSemillerosEncendidos=()=>{
 
 // Verificar si una hora es exactamente 10 minutos mayor que la otra
         const diferenciaEnMinutos = hora2.diff(hora1).as('minutes');
-        if(diferenciaEnMinutos<3){
+        if(diferenciaEnMinutos<10){
           estado_semillero='ON';
         }
         else{
@@ -236,5 +236,5 @@ const actualizarSemillerosEncendidos=()=>{
     }
   })
 }
-const intervalo = setInterval(actualizarRiego, 30000); // cada minuto
-const actualizarEncendido = setInterval(actualizarSemillerosEncendidos, 30000); // cada 10 minutos
+const intervalo = setInterval(actualizarRiego, 60000); // cada minuto
+const actualizarEncendido = setInterval(actualizarSemillerosEncendidos, 120000); // cada 10 minutos

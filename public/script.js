@@ -1,6 +1,13 @@
 var topico;
 var idsemillero=0;
-var client = mqtt.connect("ws://174.129.115.160:9001/mqtt", {
+// var client = mqtt.connect("ws://broker.emqx.io:8083/mqtt", {
+//   // Reemplaza "tu_servidor_mqtt" con la URL de tu servidor MQTT
+ 
+//   port: 8083,
+//   protocol: "ws",
+//   rejectUnauthorized: false, // Opcionalmente, establece a true si no deseas aceptar certificados no confiables
+// });
+var client = mqtt.connect("ws://44.208.207.238:9001/mqtt", {
   // Reemplaza "tu_servidor_mqtt" con la URL de tu servidor MQTT
   username: 'Rodolfo',
   password: 'semilleros',
@@ -52,6 +59,7 @@ var temperatureTrace = {
   name: "Temperatura",
   mode: "lines+markers",
   type: "line",
+  line: {color: '#CB4335'}
 };
 var humidityTrace = {
   x: [],
@@ -59,6 +67,7 @@ var humidityTrace = {
   name: "Humedad Relativa",
   mode: "lines+markers",
   type: "line",
+  line: {color: '#2874A6'}
 };
 var soilhumidityTrace = {
   x: [],
@@ -73,6 +82,7 @@ var luminosityTrace = {
   name: "Luminosidad",
   mode: "lines+markers",
   type: "line",
+  line: {color: '#D68910'}
 };
 
 var temperatureLayout = {
@@ -426,8 +436,8 @@ tempForm.addEventListener("submit", async (event) => {
   const id = idsemillero;
   const temperaturalim = document.getElementById("temperaturalim").value;
   const humedadlim = document.getElementById("humedadlim").value;
-  const topicotemp='temperatura/'+id.toString();
-  const topicohum='humedad/'+id.toString();
+  const topicotemp='temperaturasemilleros/'+id.toString();
+  const topicohum='humedadsemilleros/'+id.toString();
   client.publish(topicotemp,temperaturalim);
   client.publish(topicohum,humedadlim);
   temperaturaHTML.innerHTML=temperaturalim;

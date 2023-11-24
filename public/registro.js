@@ -18,6 +18,7 @@ var temperatureTrace = {
   name: "Temperatura",
   mode: "lines+markers",
   type: "line",
+  line: {color: '#CB4335'}
 };
 var humidityTrace = {
   x: [],
@@ -25,6 +26,7 @@ var humidityTrace = {
   name: "Humedad Relativa",
   mode: "lines+markers",
   type: "line",
+  line: {color: '#2874A6'}
 };
 var soilhumidityTrace = {
   x: [],
@@ -39,6 +41,7 @@ var luminosityTrace = {
   name: "Luminosidad",
   mode: "lines+markers",
   type: "line",
+  line: {color: '#D68910'}
 };
 
 var temperatureLayout = {
@@ -207,7 +210,18 @@ dataForm.addEventListener("submit", async (event) => {
   const id = document.getElementById("id").value;
   const fechaInicio = document.getElementById("fechaHoraInicio").value;
   const fechaFin = document.getElementById("fechaHoraFin").value;
-
+ const mediatemphtml=document.getElementById("mediatempHTML");
+ const mediahumrelhtml=document.getElementById("mediahumrelHTML");
+ const mediahumhtml=document.getElementById("mediahumHTML");
+ const medialumhtml=document.getElementById("medialumHTML");
+ const mintemphtml=document.getElementById("mintempHTML");
+ const minhumrelhtml=document.getElementById("minhumrelHTML");
+ const minhumhtml=document.getElementById("minhumHTML");
+ const minlumhtml=document.getElementById("minlumHTML");
+ const maxtemphtml=document.getElementById("maxtempHTML");
+ const maxhumrelhtml=document.getElementById("maxhumrelHTML");
+ const maxhumhtml=document.getElementById("maxhumHTML");
+ const maxlumhtml=document.getElementById("maxlumHTML");
   try {
     const response = await fetch("/registro", {
       method: "POST",
@@ -234,7 +248,30 @@ dataForm.addEventListener("submit", async (event) => {
       initialize_graphic(humidityHistoryDiv,newHumidityXArray,newHumidityYArray);
       initialize_graphic(soilhumidityHistoryDiv,newSoilhumidityXArray,newSoilhumidityYArray);
       initialize_graphic(luminosityHistoryDiv,newLuminosityXArray,newLuminosityYArray);
-      mediaTemp=math.mean(newTempYArray);
+      mediaTemp=math.mean(newTempYArray).toFixed(3);
+      mediahumrel=math.mean(newHumidityYArray).toFixed(3);
+      mediahum=math.mean(newSoilhumidityYArray).toFixed(3);
+      medialum=math.mean(newLuminosityYArray).toFixed(3);
+      minTemp=math.min(newTempYArray).toFixed(3);
+      minhumrel=math.min(newHumidityYArray).toFixed(3);
+      minhum=math.min(newSoilhumidityYArray).toFixed(3);
+      minlum=math.min(newLuminosityYArray).toFixed(3);
+      maxTemp=math.max(newTempYArray).toFixed(3);
+      maxhumrel=math.max(newHumidityYArray).toFixed(3);
+      maxhum=math.max(newSoilhumidityYArray).toFixed(3);
+      maxlum=math.max(newLuminosityYArray).toFixed(3);
+      mediatemphtml.innerHTML=mediaTemp+"°C"
+      mediahumrelhtml.innerHTML=mediahumrel+"%"
+      mediahumhtml.innerHTML=mediahum+"%"
+      medialumhtml.innerHTML=medialum+"lux"
+      mintemphtml.innerHTML=minTemp+"°C"
+      minhumrelhtml.innerHTML=minhumrel+"%"
+      minhumhtml.innerHTML=minhum+"%"
+      minlumhtml.innerHTML=minlum+"lux"
+      maxtemphtml.innerHTML=maxTemp+"°C"
+      maxhumrelhtml.innerHTML=maxhumrel+"%"
+      maxhumhtml.innerHTML=maxhum+"%"
+      maxlumhtml.innerHTML=maxlum+"lux"
       console.log(mediaTemp)
     } else {
       console.error("Error en la respuesta del servidor");
